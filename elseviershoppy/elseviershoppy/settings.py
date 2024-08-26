@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'books',
     'journals',
     'logauth',
+    'checkout'
 ]
 
 MIDDLEWARE = [

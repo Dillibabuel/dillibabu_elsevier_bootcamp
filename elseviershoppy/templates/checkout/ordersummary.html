@@ -1,0 +1,63 @@
+{% extends 'layouts.html' %}
+{% load static %}
+{% block 'mainsection' %}
+
+
+<div id="checkout" class="main-content">
+    <div class="wrap-banner">
+
+        <!-- main -->
+        <div id="wrapper-site">
+            <div style="margin:0px; min-width: 100%;" class="container">
+                <div class="row">
+                    <div class="orderheader col-12">Order Completed</div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div>
+                        <div>Order Summary</div>
+                        <ul class="cart-items">
+                            {% for item in cartInfo %}
+                            <li class="cart-item">
+                                <div class="product-line-grid row justify-content-between">
+                                    <!--  product left content: image-->
+                                    <div class="product-line-grid-left col-md-2">
+                                        <span class="product-image media-middle">
+                                            <a href="product-detail.html">
+                                                <img class="img-fluid"
+                                                    src="{% static 'img/product/' %}{{ item.image }}"
+                                                    alt="Organic Strawberry Fruits">
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="product-line-grid-body col-md-6">
+                                        <div class="product-line-info">
+                                            <a class="label" href="product-detail.html"
+                                                data-id_customization="0">{{item.name}}</a>
+                                        </div>
+                                        <div class="product-line-info product-price">
+                                            <span class="value">Qty: {{item.qty}}</span>
+                                        </div>
+                                    </div>
+    
+                                </div>
+                            </li>
+                            {% endfor %}
+    
+    
+                        </ul>
+                    </div>
+                    </div>
+                    <div class="col-6">
+                        <div>
+                            <div>Billing Summary</div>  
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

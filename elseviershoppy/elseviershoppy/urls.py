@@ -23,5 +23,6 @@ urlpatterns = [
     path('books/',include('books.urls')),
     path('journals/',include('journals.urls')),
     path('logauth/',include('logauth.urls')),
+    path('viewcart/',include('checkout.urls')),
    
 ]
