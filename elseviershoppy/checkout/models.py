@@ -21,6 +21,7 @@ class OrderItemMapping(models.Model):
     amount=models.IntegerField(default=0)
     def __str__(self):
         return str(self.id)
+        return str(self.id)+"-"+str(self.itemDetails)
     
 
 # Create your models here.
