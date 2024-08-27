@@ -42,7 +42,7 @@
                                                         <span class="product-image media-middle">
                                                             <a href="product-detail.html">
                                                                 <img class="img-fluid"
-                                                                    src="{% static 'img/home/armchair.png'%}"
+                                                                    src="{{item.image.url}}"
                                                                     alt="Organic Strawberry Fruits">
                                                             </a>
                                                         </span>
@@ -87,11 +87,10 @@
                                                             </div>
                                                             <div class="col-md-2 col text-xs-right align-self-end">
                                                                 <div class="cart-line-product-actions ">
-                                                                    <a class="remove-from-cart" rel="nofollow" href="#"
-                                                                        data-link-action="delete-from-cart"
-                                                                        data-id-product="1">
-                                                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                                    </a>
+                                                                   <form method="post" action="">
+                                                                    {% csrf_token %}
+                                                                    <button class="remove" type="submit"><span style="color:red">Remove</span></button>
+                                                                   </form>
                                                                 </div>
                                                             </div>
                                                         </div>
