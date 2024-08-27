@@ -63,12 +63,24 @@
 .user-wishlist #wrapper-site #block-history thead th {
   border-color: rgba(255, 255, 255, 0.1);
 }
+.ordersummary{
+  color:black;
+  font-size: x-large;
+  font-weight: bold;
+}
 .orderheader{
   background-color: #2fd32f;
   color:white;
   height:40px;
   font-size: x-large;
 }
+
 .test{
   background-color: black;
 }
+
+.remove{
+  border: none;
+   background: white;
+}
+
