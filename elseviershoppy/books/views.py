@@ -5,12 +5,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import ItemDetails
 
-# def books(request):
-#     booklistdata = booklist.objects.get(pk=1)
-#     data={"bookdata":booklistdata}
-#     return render (request,'books/books.html',data)
 def books(request):
     booklistdata = ItemDetails.objects.all()
+    for i in booklistdata:
+        print(i.image)
     data = {"bookdata": booklistdata}
     return render(request, 'books/books.html', data)
 
