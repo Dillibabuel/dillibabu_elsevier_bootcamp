@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from books.models import ItemDetails
 from .models import OrderItemMapping,OrderDetails
-
+totalitem=0
+totalamount=0
 def viewcart(request):
     query="""SELECT "checkout_orderitemmapping"."id","books_itemdetails"."name",
     "checkout_orderitemmapping"."amount" as total_amount,"books_itemdetails"."image",
@@ -14,12 +15,16 @@ def viewcart(request):
     where "checkout_orderdetails"."status"='In Progress'"""
     # query= """select * from checkout_OrderItemMapping where orderDetails='physics'"""
     data = OrderItemMapping.objects.raw(query)
+    totalitem=len(data)
+    totalamount=0
+    for i in data:
+        totalamount+=i.total_amount
     if(request.method=="POST"):
         mapid=request.POST.get("mapid")
         OrderItemMapping.objects.filter(id=mapid).delete()
 
 
-    return render(request,'checkout/viewcart.html',{"cartInfo":data})
+    return render(request,'checkout/viewcart.html',{"cartInfo":data,"totalitem":totalitem,"totalamount":totalamount})
 
 def checkout(request):
     if(request.method=="POST"):

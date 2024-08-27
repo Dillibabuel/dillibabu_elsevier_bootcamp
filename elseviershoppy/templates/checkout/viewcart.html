@@ -41,8 +41,7 @@
                                                     <div class="product-line-grid-left col-md-2">
                                                         <span class="product-image media-middle">
                                                             <a href="product-detail.html">
-                                                                <img class="img-fluid"
-                                                                    src="{{item.image.url}}"
+                                                                <img class="img-fluid" src="{{item.image.url}}"
                                                                     alt="Organic Strawberry Fruits">
                                                             </a>
                                                         </span>
@@ -59,52 +58,52 @@
                                                     <div
                                                         class="product-line-grid-right text-center product-line-actions col-md-4">
                                                         <div class="row">
-                                                            <div class="col-md-5 col qty">
+                                                            <div class="col-md-3 col qty">
                                                                 <div class="label">Qty:</div>
                                                                 <div class="quantity">
-                                                                    <input type="text" name="qty" value={{item.qty}}
-                                                                        class="input-group form-control">
+                                                                    {{item.quantity}}
 
-                                                                    <span class="input-group-btn-vertical">
-                                                                        <button
-                                                                            class="btn btn-touchspin js-touchspin bootstrap-touchspin-up"
-                                                                            type="button">
-                                                                            +
-                                                                        </button>
-                                                                        <button
-                                                                            class="btn btn-touchspin js-touchspin bootstrap-touchspin-down"
-                                                                            type="button">
-                                                                            -
-                                                                        </button>
-                                                                    </span>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-5 col price">
+                                                            <div class="col-md-3 col price">
                                                                 <div class="label">Total:</div>
                                                                 <div class="product-price total">
                                                                     {{item.total_amount}}
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-3 col price">
+                                                                <form method="post" action="">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden" name="mapid"
+                                                                        value="{{item.id}}">
+                                                                    <button style="background-color: inherit;" class="remove" type="submit"><span
+                                                                            style="color:red">Remove</span></button>
+                                                                </form>
+                                                            </div>
+                
                                                             <div class="col-md-2 col text-xs-right align-self-end">
                                                                 <div class="cart-line-product-actions ">
-                                                                   <form method="post" action="">
-                                                                    {% csrf_token %}
-                                                                    <input type="hidden" name="mapid" value="{{item.id}}">
-                                                                    <button class="remove" type="submit"><span style="color:red">Remove</span></button>
-                                                                   </form>
+                                                                    <!-- <form method="post" action="">
+                                                                        {% csrf_token %}
+                                                                        <input type="hidden" name="mapid"
+                                                                            value="{{item.id}}">
+                                                                        <button class="remove" type="submit"><span
+                                                                                style="color:red">Remove</span></button>
+                                                                    </form> -->
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </li>
+                                           <span style="display: block; height:2px"></span>
                                             {% endfor %}
 
 
                                         </ul>
                                     </div>
                                 </div>
-                                <a href="product-checkout.html" class="continue btn btn-primary pull-xs-right">
+                                <a href="product-checkout.html" style="background-color: black;padding-bottom: 5px;" class="continue btn btn-primary pull-xs-right">
                                     Continue
                                 </a>
                             </div>
@@ -112,13 +111,13 @@
                                 <div class="cart-summary test">
                                     <div class="cart-detailed-totals">
                                         <div class="cart-summary-products">
-                                            <div class="summary-label">There are 3 item in your cart</div>
+                                            <div class="summary-label">There are {{totalitem}} item in your cart</div>
                                         </div>
                                         <div class="cart-summary-line" id="cart-subtotal-products">
                                             <span class="label js-subtotal">
                                                 Total products:
                                             </span>
-                                            <span class="value">£200.00</span>
+                                            <span class="value">£{{totalamount}}</span>
                                         </div>
                                         <div class="cart-summary-line" id="cart-subtotal-shipping">
                                             <span class="label">

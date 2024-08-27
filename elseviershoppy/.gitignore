@@ -1,6 +1,8 @@
 # Python
 *.pyc
 __pycache__/
+migrations/
+
 
 # Django
 *.sqlite3
