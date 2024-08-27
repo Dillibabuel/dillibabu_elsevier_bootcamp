@@ -89,6 +89,7 @@
                                                                 <div class="cart-line-product-actions ">
                                                                    <form method="post" action="">
                                                                     {% csrf_token %}
+                                                                    <input type="hidden" name="mapid" value="{{item.id}}">
                                                                     <button class="remove" type="submit"><span style="color:red">Remove</span></button>
                                                                    </form>
                                                                 </div>

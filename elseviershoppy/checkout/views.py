@@ -14,6 +14,9 @@ def viewcart(request):
     where "checkout_orderdetails"."status"='In Progress'"""
     # query= """select * from checkout_OrderItemMapping where orderDetails='physics'"""
     data = OrderItemMapping.objects.raw(query)
+    if(request.method=="POST"):
+        mapid=request.POST.get("mapid")
+        OrderItemMapping.objects.filter(id=mapid).delete()
 
 
     return render(request,'checkout/viewcart.html',{"cartInfo":data})
