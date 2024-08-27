@@ -4,8 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from books.models import ItemDetails
 from .models import OrderItemMapping,OrderDetails
-totalitem=0
-totalamount=0
+
 def viewcart(request):
     query="""SELECT "checkout_orderitemmapping"."id","books_itemdetails"."name",
     "checkout_orderitemmapping"."amount" as total_amount,"books_itemdetails"."image",
@@ -16,17 +15,33 @@ def viewcart(request):
     # query= """select * from checkout_OrderItemMapping where orderDetails='physics'"""
     data = OrderItemMapping.objects.raw(query)
     totalitem=len(data)
+    totalproduct=0
     totalamount=0
     for i in data:
         totalamount+=i.total_amount
+        totalproduct+=i.qty
     if(request.method=="POST"):
         mapid=request.POST.get("mapid")
         OrderItemMapping.objects.filter(id=mapid).delete()
 
 
-    return render(request,'checkout/viewcart.html',{"cartInfo":data,"totalitem":totalitem,"totalamount":totalamount})
+    return render(request,'checkout/viewcart.html',{"cartInfo":data,"totalitem":totalitem,"totalamount":totalamount,"totalproduct":totalproduct})
 
 def checkout(request):
+    query="""SELECT "checkout_orderitemmapping"."id","books_itemdetails"."name",
+    "checkout_orderitemmapping"."amount" as total_amount,"books_itemdetails"."image",
+    "checkout_orderitemmapping"."quantity" as qty FROM "checkout_orderitemmapping" INNER JOIN "checkout_orderdetails" 
+    ON ("checkout_orderitemmapping"."orderDetails_id" = "checkout_orderdetails"."id") 
+    INNER JOIN "books_itemdetails" ON ("checkout_orderitemmapping"."itemDetails_id" = "books_itemdetails"."id")
+    where "checkout_orderdetails"."status"='In Progress'"""
+    # query= """select * from checkout_OrderItemMapping where orderDetails='physics'"""
+    data = OrderItemMapping.objects.raw(query)
+    totalitem=len(data)
+    totalproduct=0
+    totalamount=0
+    for i in data:
+        totalamount+=i.total_amount
+        totalproduct+=i.qty
     if(request.method=="POST"):
         address=request.POST.get("address")
         Area=request.POST.get("Area")
@@ -55,7 +70,7 @@ def checkout(request):
         print(OrderDetails.objects.filter(id=orderdata[0].id))
         
 
-    return render(request,'checkout/checkout.html')
+    return render(request,'checkout/checkout.html',{"totalitem":totalitem,"totalamount":totalamount,"totalproduct":totalproduct})
 def ordersummary(request):
     productDetails=[{
         "name":"phyiscs",
