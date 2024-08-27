@@ -131,7 +131,7 @@
                     <div class="col-sm-2 col-md-2 d-flex align-items-center">
                         <div id="logo">
                             <a href="index-2.html">
-                                <img class="img-fluid" src="{% static 'img/home/logo.png' %}" alt="logo">
+                                <img class="img-fluid" src="{% static 'img/home/elseshoppy.png' %}" alt="logo">
                             </a>
                         </div>
                     </div>
@@ -147,7 +147,7 @@
                                             <li class="item">
                                                 <a href="index-2.html" title="Home Page 1">Home Page 1</a>
                                             </li>
-                                            <li class="item">
+                                            <!-- <li class="item">
                                                 <a href="home2.html" title="Home Page 2">Home Page 2</a>
                                             </li>
                                             <li class="item">
@@ -158,18 +158,18 @@
                                             </li>
                                             <li class="item">
                                                 <a href="home5.html" title="Home Page 5">Home Page 5</a>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                     </div>
                                 </li>
                                 <li>
-                                    <a href="#" class="parent">Blog</a>
+                                    <a href="#" class="parent">Books</a>
                                     <div class="dropdown-menu">
                                         <ul>
                                             <li class="item">
                                                 <a href="blog-list-sidebar-left.html" title="Blog List (Sidebar Left)">Blog List (Sidebar Left)</a>
                                             </li>
-                                            <li class="item">
+                                            <!-- <li class="item">
                                                 <a href="blog-list-sidebar-left2.html" title="Blog List (Sidebar Left) 2">Blog List (Sidebar Left) 2</a>
                                             </li>
                                             <li class="item">
@@ -183,12 +183,12 @@
                                             </li>
                                             <li class="item">
                                                 <a href="blog-detail.html" title="Blog Detail">Blog Detail</a>
-                                            </li>
+                                            </li> -->
                                         </ul>
                                     </div>
                                 </li>
-                                <li>
-                                    <a href="#" class="parent">Page</a>
+                                 <li>
+                                    <a href="#" class="parent">Journals</a>
                                     <div class="dropdown-menu drop-tab">
                                         <ul>
                                             <li class="item container group">
@@ -201,12 +201,12 @@
                                                                     <li>
                                                                         <a href="product-grid-sidebar-left.html">Product Grid (Sidebar Left)</a>
                                                                     </li>
-                                                                    <li>
+                                                                    <!-- <li>
                                                                         <a href="product-grid-sidebar-right.html">Product Grid (Sidebar Right)</a>
                                                                     </li>
                                                                     <li>
                                                                         <a href="product-list-sidebar-left.html">Product List (Sidebar left) </a>
-                                                                    </li>
+                                                                    </li> -->
                                                                 </ul>
                                                             </div>
                                                         </li>
@@ -242,9 +242,9 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="contact.html" class="parent">Contact US</a>
-                                </li>
+                                </li>  -->
                             </ul>
                         </div>
                     </div>
@@ -270,19 +270,19 @@
                             <div id="acount" class="collapse">
                                 <div class="account-list-content">
                                     <div>
-                                        <a class="login" href="user-acount.html" rel="nofollow" title="Log in to your customer account">
+                                        <a class="login" href="{% url 'profile' %}" rel="nofollow" title="Log in to your customer account">
                                             <i class="fa fa-cog"></i>
                                             <span>My Account</span>
                                         </a>
                                     </div>
                                     <div>
-                                        <a class="login" href="user-login.html" rel="nofollow" title="Log in to your customer account">
+                                        <a class="login" href="{% url 'login' %}" rel="nofollow" title="Log in to your customer account">
                                             <i class="fa fa-sign-in"></i>
                                             <span>Sign in</span>
                                         </a>
                                     </div>
                                     <div>
-                                        <a class="register" href="user-register.html" rel="nofollow" title="Register Account">
+                                        <a class="register" href="{% url 'register' %}" rel="nofollow" title="Register Account">
                                             <i class="fa fa-user"></i>
                                             <span>Register Account</span>
                                         </a>
@@ -298,40 +298,6 @@
                                             <i class="fa fa-heart"></i>
                                             <span>My Wishlists</span>
                                         </a>
-                                    </div>
-                                    <div id="desktop_currency_selector" class="currency-selector groups-selector hidden-sm-down">
-                                        <ul class="list-inline">
-                                            <li>
-                                                <a title="Euro" rel="nofollow" href="#">EUR</a>
-                                            </li>
-                                            <li class="current list-inline-item">
-                                                <a title="British Pound Sterling" rel="nofollow" href="#">GBP</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div id="desktop_language_selector" class="language-selector groups-selector hidden-sm-down">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item current">
-                                                <a href="#">
-                                                    <img class="img-fluid" src="{% static 'img/home/home1-flas.jpg' %}" alt="English" width="16" height="11">
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">
-                                                    <img class="img-fluid" src="{% static  'img/home/home1-flas2.jpg' %}" alt="Italiano" width="16" height="11">
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">
-                                                    <img class="img-fluid" src="{% static 'img/home/home1-flas3.jpg'%}" alt="Français" width="16" height="11">
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">
-                                                    <img class="img-fluid" src="{% static  'img/home/home1-flas4.jpg'%}" alt="Español" width="16" height="11">
-                                                </a>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -406,7 +372,7 @@
                             <div class="block">
                                 <div class="block-content">
                                     <p class="logo-footer">
-                                        <img src="{% static 'img/home/logo.png'%}" alt="img">
+                                        <img src="{% static 'img/home/'%}" alt="img">
                                     </p>
                                     <p class="content-logo">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt
                                         ut labore et dolore magna aliqua. Ut enim ad minim
@@ -1118,18 +1084,6 @@
                                     <ul>
                                         <li class="item">
                                             <a href="index-2.html" title="Home Page 1">Home Page 1</a>
-                                        </li>
-                                        <li class="item">
-                                            <a href="home2.html" title="Home Page 2">Home Page 2</a>
-                                        </li>
-                                        <li class="item">
-                                            <a href="home3.html" title="Home Page 3">Home Page 3</a>
-                                        </li>
-                                        <li class="item">
-                                            <a href="home4.html" title="Home Page 4">Home Page 4</a>
-                                        </li>
-                                        <li class="item">
-                                            <a href="home5.html" title="Home Page 5">Home Page 5</a>
                                         </li>
                                     </ul>
                                 </div>
