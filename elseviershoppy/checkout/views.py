@@ -66,8 +66,7 @@ def checkout(request):
         print("kalai")
         orderdata=OrderDetails.objects.raw("select * from checkout_OrderDetails where status=='In Progress'")
         
-        OrderDetails.objects.filter(id=orderdata[0].id).update(address=data,paymenttype=payment)
-        print(OrderDetails.objects.filter(id=orderdata[0].id))
+        OrderDetails.objects.filter(id=orderdata[0].id).update(address=data,paymenttype=payment,status="Completed")
         
 
     return render(request,'checkout/checkout.html',{"totalitem":totalitem,"totalamount":totalamount,"totalproduct":totalproduct})
