@@ -202,18 +202,21 @@
                                             <span>My Account</span>
                                         </a>
                                     </div>
+                                    {% if not user.is_authenticated %}
                                     <div>
                                         <a class="login" href="{% url 'login' %}" rel="nofollow" title="Log in to your customer account">
                                             <i class="fa fa-sign-in"></i>
                                             <span>Sign in</span>
                                         </a>
                                     </div>
+                                   
                                     <div>
                                         <a class="register" href="{% url 'register' %}" rel="nofollow" title="Register Account">
                                             <i class="fa fa-user"></i>
                                             <span>Register Account</span>
                                         </a>
                                     </div>
+                                    {% endif %}
                                     <div>
                                         <a class="check-out" href="product-checkout.html" rel="nofollow" title="Checkout">
                                             <i class="fa fa-check" aria-hidden="true"></i>
@@ -226,6 +229,14 @@
                                             <span>My Wishlists</span>
                                         </a>
                                     </div>
+                                    {% if user.is_authenticated %}
+                                    <div>
+                                        <a href="{% url 'logout' %}" title="logout">
+                                            <i class="fas fa-sign-out-alt"></i>
+                                            <span>logout</span>
+                                        </a>
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -356,7 +367,7 @@
                                             <span>Email :</span>
                                         </div>
                                         <div class="content-contact mail-contact">
-                                            <p>support@domain.com</p>
+                                            <p>support@elseviershoppydomain.com</p>
                                         </div>
                                     </div>
                                     <div class="contact-us">
@@ -368,16 +379,7 @@
                                             <p>+0012-345-67890</p>
                                         </div>
                                     </div>
-                                    <div class="contact-us">
-                                        <div class="title-content">
-                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                            <span>Opening Hours :</span>
-                                        </div>
-                                        <div class="content-contact hours-contact">
-                                            <p>Monday - Sunday / 08.00AM - 19.00</p>
-                                            <span>(Except Holidays)</span>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
