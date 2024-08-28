@@ -2,9 +2,41 @@
 {% load static %}
 
 {% block 'mainsection' %}
+
+<style>
+#wrapper-site {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+#content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    text-align: center;
+}
+
+.form-control-md {
+    max-width: 600px; /* Adjust as needed for your design */
+    width: 100%; /* Ensures the input field takes up the full width of its container */
+    box-sizing: border-box; /* Includes padding and border in the element's total width */
+    margin: 0 auto; /* Center horizontally if you have a fixed width */
+}
+
+.btn-md {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+}
+
+</style>
+
 <div class="main-content">
     <div class="wrap-banner">
-
         <!-- breadcrumb -->
         <nav class="breadcrumb-bg">
             <div class="container no-index">
@@ -24,7 +56,6 @@
                 </div>
             </div>
         </nav>
-
     </div>
 
     <!-- main -->
@@ -46,12 +77,12 @@
                             {% csrf_token %}
                             <div>
                                 <input type="hidden" name="back" value="my-account">
-                                <div class="form-group no-gutters">
-                                    <input class="form-control" name="username" type="text" placeholder=" username">
+                                <div class="form-group no-gutters mb-3">
+                                    <input class="form-control form-control-md" name="username" type="text" placeholder="Username" required>
                                 </div>
-                                <div class="form-group no-gutters">
+                                <div class="form-group no-gutters mb-4">
                                     <div class="input-group js-parent-focus">
-                                        <input class="form-control js-child-focus js-visible-password" name="password" type="password" value="" placeholder="Password">
+                                        <input class="form-control js-child-focus js-visible-password form-control-md" name="password" type="password" value="" placeholder="Password" required>
                                     </div>
                                 </div>
                                 <div class="no-gutters text-center">
@@ -65,7 +96,7 @@
                             <div class="clearfix">
                                 <div class="text-center no-gutters">
                                     <input type="hidden" name="submitLogin" value="1">
-                                    <button class="btn btn-primary" data-link-action="sign-in" type="submit">
+                                    <button class="btn btn-primary btn-md" data-link-action="sign-in" type="submit">
                                         Sign in
                                     </button>
                                 </div>
@@ -77,4 +108,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
