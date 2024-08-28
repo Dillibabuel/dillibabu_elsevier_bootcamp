@@ -3,10 +3,56 @@
 
 {% block 'mainsection' %}
 
+<style>
+/* Ensure the wrapper-site takes up full viewport height and centers content */
+#wrapper-site {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh; /* Adjust this value as needed */
+}
+
+/* Style for the form container */
+.register-form {
+    position: relative;
+    left: 300px;
+    text-align: center;
+    width: 100%;
+    max-width: 500px; /* Adjust the maximum width as needed */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Input field styling */
+.form-control {
+    width: 100%;
+    max-width: 100%; /* Ensure input fields don't exceed the container's width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    margin-bottom: 15px; /* Space between fields */
+}
+
+/* Button styling */
+.btn-primary {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+/* Additional styling for the page content and breadcrumb if needed */
+.page-content {
+    padding: 20px;
+}
+
+.breadcrumb {
+    margin-bottom: 20px;
+}
+</style>
+
 <!-- main content -->
 <div class="main-content">
     <div class="wrap-banner">
-
         <!-- breadcrumb -->
         <nav class="breadcrumb-bg">
             <div class="container no-index">
@@ -15,6 +61,11 @@
                         <li>
                             <a href="{% url 'index' %}">
                                 <span>Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span>Create Account</span>
                             </a>
                         </li>
                     </ol>
@@ -27,58 +78,41 @@
     <div id="wrapper-site">
         <div class="container">
             <div class="row">
-                <div id="content-wrapper" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 onecol">
+                <div id="content-wrapper" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div id="main">
                         <div id="content" class="page-content">
-                            <div class="register-form text-center">
-                                <h1 class="text-center title-page">Create Account</h1>
+                            <div class="register-form">
+                                <h1 class="title-page">Create Account</h1>
                                 {% for message in messages %}
                                 <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                  {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    {{ message }}
                                 </div>
-                              {% endfor %}
+                                {% endfor %}
                                 <form action="" method="post">
                                     {% csrf_token %}
-                                    <div>
-                                        <div class="form-group">
-                                            <div>
-                                                <input class="form-control" name="username" type="text" placeholder="User name">
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <div>
-                                                <input class="form-control" name="email" type="email" placeholder="Email">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div>
-                                                <div class="input-group js-parent-focus">
-                                                    <input class="form-control js-child-focus js-visible-password" name="password" type="password" placeholder="Password">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div>
-                                                <div class="input-group js-parent-focus">
-                                                    <input class="form-control js-child-focus js-visible-password" name="confirm_password" type="password" placeholder="Confirm Password">
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="form-group">
+                                        <input class="form-control" name="username" type="text" placeholder="User name" required>
                                     </div>
-                                    <div class="clearfix">
-                                        <div>
-                                            <button class="btn btn-primary" data-link-action="sign-in" type="submit">
-                                                Create Account
-                                            </button>
-                                        </div>
+                                    <div class="form-group">
+                                        <input class="form-control" name="email" type="email" placeholder="Email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" name="password" type="password" placeholder="Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" name="confirm_password" type="password" placeholder="Confirm Password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" type="submit">
+                                            Create Account
+                                        </button>
                                     </div>
                                 </form>
                                 <br>
-<p>Already have an account  <a href="{% url 'login' %}"><b>Login now</b></a></p>
+                                <p>Already have an account <a href="{% url 'login' %}"><b>Login now</b></a></p>
                             </div>
                         </div>
                     </div>
@@ -87,4 +121,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

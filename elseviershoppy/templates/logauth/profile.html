@@ -16,7 +16,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{% url 'profile' %}">
                                 <span>My Account</span>
                             </a>
                         </li>
@@ -32,15 +32,16 @@
                     <div class="content" id="block-history">
                         <table class="std table">
                             <tbody>
+                                
                                 <tr>
-                                    <th class="first_item">My Name :</th>
-                                    <td>David James</td>
+                                    <th class="first_item">Name :</th>
+                                    <td>{{ user.username }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="first_item">Company :</th>
-                                    <td>TivaTheme</td>
+                                    <th class="Email">Email :</th>
+                                    <td>{{ user.email }}</td>
                                 </tr>
-                                <tr>
+                                <!-- <tr>
                                     <th class="first_item">Address :</th>
                                     <td>123 canberra Street, New York, USA</td>
                                 </tr>
@@ -59,14 +60,11 @@
                                 <tr>
                                     <th class="first_item">Country:</th>
                                     <td>USA</td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
 
                     </div>
-                    <button class="btn btn-primary" data-link-action="sign-in" type="submit">
-                        view Address
-                    </button>
                     <div class="order">
                         <h4>Order
                             <span class="detail">History</span>
