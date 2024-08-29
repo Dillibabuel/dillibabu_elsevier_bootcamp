@@ -1,9 +1,3 @@
-# from django.shortcuts import render
-
-# # Create your views here.
-# from django.http import HttpResponse
-# def journals(request):
-#     return render(request,'journals.html')
 from django.shortcuts import render
 from .models import JournalItemDetails
 from django.http import HttpResponse
