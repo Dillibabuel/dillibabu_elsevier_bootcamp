@@ -557,7 +557,7 @@
     padding: 0px 8px 50px;
   }
   #home5 .main-content #wrapper-site #content-wrapper #main .page-home .featured-product .tab-content {
-    overflow: visible;
+    overflow: hidden;
   }
   #home5 .main-content #wrapper-site #content-wrapper #main .page-home .featured-product .tab-content .item {
     max-width: 50%;
