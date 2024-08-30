@@ -62,15 +62,15 @@
                                     <div class="product-line-grid row justify-content-between">
                                         <div class="product-line-grid-left col-md-2">
                                             <span class="product-image media-middle">
-                                                <img class="img-fluid" src="{{ item.itemDetails.image.url }}" alt="{{ item.itemDetails.name }}">
+                                                <img class="img-fluid" src="{{ item.image_url }}" alt="{{ item.item_name }}">
                                             </span>
                                         </div>
                                         <div class="product-line-grid-body col-md-6">
                                             <div class="product-line-info">
-                                                <span class="label">{{ item.itemDetails.name }}</span>
+                                                <span class="label">{{ item.item_name }}</span>
                                             </div>
                                             <div class="product-line-info product-price">
-                                                <span class="value">${{ item.amount }}</span>
+                                                <span class="value">${{ item.single_amount }}</span>
                                             </div>
                                         </div>
                                         <div class="product-line-grid-right text-center product-line-actions col-md-4">
@@ -81,7 +81,7 @@
                                                 </div>
                                                 <div class="col-md-3 col price">
                                                     <div class="label">Total:</div>
-                                                    <div class="product-price total">${{ item.total_amount }}</div>
+                                                    <div class="product-price total">${{ item.amount }}</div>
                                                 </div>
                                             </div>
                                         </div>

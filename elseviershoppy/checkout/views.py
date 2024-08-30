@@ -8,6 +8,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.urls import reverse
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from django.template.loader import render_to_string
+from django.forms.models import model_to_dict
+
+
 
 
 from django.http import JsonResponse
@@ -39,6 +46,7 @@ from django.http import JsonResponse
 
 
 def viewcart(request):
+    
     user_id = request.user.id  # Assuming the user is logged in and you have the user ID
 
     # Get the order in progress for the current user
@@ -148,12 +156,30 @@ def checkout(request):
 
     return render(request, 'checkout/checkout.html', {"totalitem": totalitem, "totalamount": totalamount, "totalproduct": totalproduct})
 
+# def ordersummary(request,id):
+#     # print('naaz')
+#     # print(id)
+#     order = OrderDetails.objects.filter(id=id).first()
+#     order_items = OrderItemMapping.objects.filter(orderDetails=order)
+#     createserver(order,order_items)
+#     return render (request,'checkout/ordersummary.html', {"order":order,"order_items":order_items})
+
 def ordersummary(request,id):
-    print('naaz')
-    print(id)
-    order = OrderDetails.objects.filter(id=id).first()
-    order_items = OrderItemMapping.objects.filter(orderDetails=order)
-    return render (request,'checkout/ordersummary.html', {"order":order,"order_items":order_items})
+    user = request.user
+    order = OrderDetails.objects.get(id=id, userid=user.id, status='Completed')
+    order_items = OrderItemMapping.objects.filter(orderDetails=order).select_related('itemDetails')
+    order_items_dict = []
+    for item in order_items:
+        item_dict = model_to_dict(item)
+        item_dict['single_amount'] = item.amount / item.quantity if item.quantity else 0
+        item_dict['item_name'] = item.itemDetails.name  # Add item name to the dictionary
+        item_dict['image_url'] = item.itemDetails.image.url  # Add image URL to the dictionary
+        order_items_dict.append(item_dict)
+    # Send the order confirmation email
+    createserver(user, order, order_items)
+
+    return render(request, 'checkout/ordersummary.html', {"order":order,"order_items":order_items_dict})
+
 
 
 @login_required
@@ -196,28 +222,32 @@ def add_to_cart(request):
     # messages.error(request, "Invalid request")
     return redirect('books')  
         
-    #     return JsonResponse({"message": "Item added to cart successfully!"})
-
-    # return JsonResponse({"error": "Invalid request"}, status=400)
-# def ordersummary(request):
-#     productDetails=[{
-#         "name":"phyiscs",
-#         "qty":2,
-#         "amount":"$ "+ str(180),
-#         "total_amount":"$ "+ str(360),
-#         "image":"2.jpg",
-#         "index":0
-
-#     },
-#     {
-#         "name":"science",
-#         "qty":3,
-#         "amount":"$ "+ str(180),
-#         "total_amount":"$ "+ str(180),
-#         "image":"3.jpg",
-#         "index":1
-
-#     }
-#     ]
-#     data={"cartInfo":productDetails}
-#     return render(request,'checkout/ordersummary.html',data)
+def createserver(user,order,orderitems):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login('mnaazismail5667@gmail.com', 'vmiaaltickbehvqh')
+        
+        # Create the email
+    msg = MIMEMultipart()
+    msg['From'] = 'mnaazismail5667@gmail.com'
+    msg['To'] = user.email
+    msg['Subject'] = 'Request for leave'
+        
+        # Add the email body
+    text = 'Hi how are you'
+    order_items_dict = []
+    total=0
+    for item in orderitems:
+        item_dict = model_to_dict(item)
+        item_dict['single_amount'] = item.amount / item.quantity if item.quantity else 0
+        total+=item.amount
+        item_dict['item_name'] = item.itemDetails.name  # Add item name to the dictionary
+        item_dict['image_url'] = item.itemDetails.image.url  # Add image URL to the dictionary
+        order_items_dict.append(item_dict)
+    content=render_to_string('email.html',{"order":order,"order_items":order_items_dict,"total":total})
+    msg.attach(MIMEText(content, 'html'))
+        
+        # Send the email
+    server.send_message(msg)
+    server.quit()
+    print("Email sent successfully")
