@@ -31,6 +31,7 @@
                         <div class="cart-grid row">
                             <div class="col-md-9 col-xs-12 check-info">
                                 <h1 class="title-page">Shopping Cart</h1>
+                                {% if totalitem > 0 %}
                                 <div class="cart-container">
                                     <div class="cart-overview js-cart">
                                         <ul class="cart-items">
@@ -41,15 +42,15 @@
                                                     <div class="product-line-grid-left col-md-2">
                                                         <span class="product-image media-middle">
                                                             <a href="product-detail.html">
-                                                                <img class="img-fluid" src="{{item.image.url}}"
-                                                                    alt="Organic Strawberry Fruits">
+                                                                <img class="img-fluid" src="{{ item.itemDetails.image.url }}"
+                                                                    alt="{{ item.itemDetails.name }}">
                                                             </a>
                                                         </span>
                                                     </div>
                                                     <div class="product-line-grid-body col-md-6">
                                                         <div class="product-line-info">
                                                             <a class="label" href="product-detail.html"
-                                                                data-id_customization="0">{{item.name}}</a>
+                                                                data-id_customization="0">{{ item.itemDetails.name }}</a>
                                                         </div>
                                                         <div class="product-line-info product-price">
                                                             <span class="value">{{item.amount}}</span>
@@ -68,14 +69,14 @@
                                                             <div class="col-md-3 col price">
                                                                 <div class="label">Total:</div>
                                                                 <div class="product-price total">
-                                                                    {{item.total_amount}}
+                                                                    {{item.totalamount}}
+                                                                    {{item.amount}}
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3 col price">
                                                                 <form method="post" action="">
                                                                     {% csrf_token %}
-                                                                    <input type="hidden" name="mapid"
-                                                                        value="{{item.id}}">
+                                                                    <input type="hidden" name="mapid" value="{{ item.id }}">
                                                                     <button style="background-color: inherit;" class="remove" type="submit"><span
                                                                             style="color:red">Remove</span></button>
                                                                 </form>
@@ -103,9 +104,16 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <a href="product-checkout.html" style="background-color: black;padding-bottom: 5px;" class="continue btn btn-primary pull-xs-right">
+                                <a href="{% url 'checkout' %}" style="background-color: black;padding-bottom: 5px;" class="continue btn btn-primary pull-xs-right">
                                     Continue
                                 </a>
+                                {% else %}
+            <!-- Display a button to redirect to the books page if the cart is empty -->
+            <div class="empty-cart">
+                <h1>Your Shopping Cart is Empty</h1>
+                <a href="{% url 'books' %}" class="btn btn-secondary">Go to Books Page</a>
+            </div>
+        {% endif %}
                             </div>
                             {% include 'checkout/cartsummary.html' %}
                         </div>

@@ -28,69 +28,68 @@
                 <div class="row">
                     <div class="col-2"></div>
                     <div class="col-8">
-                        Hi Naaz,
+                        Hi {{ request.user.first_name }},
                     </div>
-                    <!-- <h3>Your order has been confirmed and will be delivered soon</h3> -->
                     <div class="col-2"></div>
                     <div class="col-2"></div>
-
                     <div class="col-8">Your order has been confirmed and will be delivered soon</div>
+                    <div class="col-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-2">
+                        <span style="display:block">Order Date</span>
+                        <span style="display:block">{{ order.date }}</span>
+                    </div>
+                    <div class="col-2">
+                        <span style="display:block">Order ID</span>
+                        <span style="display:block">{{ order.id }}</span>
+                    </div>
+                    <div class="col-2">
+                        <span style="display:block">Payment Type</span>
+                        <span style="display:block">{{ order.paymenttype }}</span>
+                    </div>
                     
                     <div class="col-2"></div>
-                    </div>
-
-                   
                 </div>
-                
                 <div class="row">
-                    <div class="col-2">
-                    </div>
-                    <div class="col-2">
-                        <span style="display:block">
-                            Order Date
-                        </span>
-                        <span style="display:block">
-                            1233
-                        </span>
-                    </div>
-                    <div class="col-2">
-                        <span style="display:block">
-                            Order Date
-                        </span>
-                        <span style="display:block">
-                            1233
-                        </span>
-                    </div>
-                    <div class="col-2">
-                        <span style="display:block">
-                            Order Date
-                        </span>
-                        <span style="display:block">
-                            1233
-                        </span>
-                    </div>
-                    <div class="col-2">
-                        <span style="display:block">
-                            Order Date
-                        </span>
-                        <span style="display:block">
-                            1233
-                        </span>
-                    </div>
-                    <div class="col-2">
-
-                    </div>
-                    <!-- <div class="col-8">
-                        <div>
-                        <div class="ordersummary">Order Summary</div>
-                        <hr/>
-                      
-                    </div>
                     <div class="col-2"></div>
-                    </div> -->
-
-                   
-                </div>
+                    <div class="col-8">
+                        <h3>Order Items</h3>
+                        <ul>
+                            {% for item in order_items %}
+                                <li>
+                                    <div class="product-line-grid row justify-content-between">
+                                        <div class="product-line-grid-left col-md-2">
+                                            <span class="product-image media-middle">
+                                                <img class="img-fluid" src="{{ item.image_url }}" alt="{{ item.item_name }}">
+                                            </span>
+                                        </div>
+                                        <div class="product-line-grid-body col-md-6">
+                                            <div class="product-line-info">
+                                                <span class="label">{{ item.item_name }}</span>
+                                            </div>
+                                            <div class="product-line-info product-price">
+                                                <span class="value">${{ item.single_amount }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="product-line-grid-right text-center product-line-actions col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-3 col qty">
+                                                    <div class="label">Qty:</div>
+                                                    <div class="quantity">{{ item.quantity }}</div>
+                                                </div>
+                                                <div class="col-md-3 col price">
+                                                    <div class="label">Total:</div>
+                                                    <div class="product-price total">${{ item.amount }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
             </div>
         </div>
     </div>

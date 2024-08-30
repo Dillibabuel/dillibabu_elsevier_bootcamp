@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            background-color: green;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Order Completed</h1>
+        <p>Hi {{ user.first_name }},</p>
+        <p>Thank you for your order. Here are the details:</p>
+        <table>
+            <tr>
+                <th>Order ID</th>
+                <td>{{ order.id }}</td>
+            </tr>
+            <tr>
+                <th>Order Date</th>
+                <td>{{ order.date }}</td>
+            </tr>
+            <tr>
+                <th>Amount</th>
+                <td>${{ total }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ order.address.address }}, {{ order.address.Area }}, {{ order.address.City }}, {{ order.address.State }}, {{ order.address.PinCode }}, {{ order.address.Country }}</td>
+            </tr>
+        </table>
+        <h2>Order Items</h2>
+        <table>
+            <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            {% for item in order_items %}
+            <tr>
+                <td>{{ item.item_name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>${{ item.amount }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
