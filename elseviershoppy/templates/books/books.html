@@ -238,9 +238,19 @@
                                                     
                                                     <form action="" method="post">
                                                         {% csrf_token %}
-                                                        <input type="hidden" value="education" name="category">
+                                                        <input type="hidden" value="all" name="category">
                                                         
-                                                 <button type="submit" class="category">Education</button>
+                                                 <button type="submit" class="category">All</button>
+                                                    </form>
+                                                    
+                                                </div>
+                                                <div class="cateTitle hasSubCategory open level1">
+                                                    
+                                                    <form action="" method="post">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" value="education" name="category">
+                                                     <button type="submit" class="category">Education</button>
+                                                
                                                     </form>
                                                     
                                                 </div>

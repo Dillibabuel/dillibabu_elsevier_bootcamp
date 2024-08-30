@@ -11,9 +11,12 @@ def books(request):
     data = {"bookdata": booklistdata}
     if(request.method=="POST"):
         category=request.POST.get("category")
-        booklistdata = ItemDetails.objects.filter(category=category).all().order_by('name')
+        if category == "all":
+            booklistdata = ItemDetails.objects.all().order_by('name')
+        else:
+            booklistdata = ItemDetails.objects.filter(category=category).all().order_by('name')
         data = {"bookdata": booklistdata}
-        print(data)
+        # print(data)
     
     return render(request, 'books/books.html', data)
 

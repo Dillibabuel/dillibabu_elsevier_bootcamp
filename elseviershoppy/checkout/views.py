@@ -5,9 +5,9 @@ from django.http import HttpResponse
 from books.models import ItemDetails
 from .models import OrderItemMapping,OrderDetails
 from django.contrib.auth.models import User
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from django.utils import timezone
+from django.urls import reverse
 
 
 from django.http import JsonResponse
@@ -62,49 +62,99 @@ def viewcart(request):
     
     return render(request, 'checkout/viewcart.html', {"cartInfo": order_items, "totalitem": totalitem, "totalamount": totalamount, "totalproduct": totalproduct})
 
-def checkout(request):
-    query="""SELECT "checkout_orderitemmapping"."id","books_itemdetails"."name",
-    "checkout_orderitemmapping"."amount" as total_amount,"books_itemdetails"."image",
-    "checkout_orderitemmapping"."quantity" as qty FROM "checkout_orderitemmapping" INNER JOIN "checkout_orderdetails" 
-    ON ("checkout_orderitemmapping"."orderDetails_id" = "checkout_orderdetails"."id") 
-    INNER JOIN "books_itemdetails" ON ("checkout_orderitemmapping"."itemDetails_id" = "books_itemdetails"."id")
-    where "checkout_orderdetails"."status"='In Progress'"""
-    # query= """select * from checkout_OrderItemMapping where orderDetails='physics'"""
-    data = OrderItemMapping.objects.raw(query)
-    totalitem=len(data)
-    totalproduct=0
-    totalamount=0
-    for i in data:
-        totalamount+=i.total_amount
-        totalproduct+=i.qty
-    if(request.method=="POST"):
-        address=request.POST.get("address")
-        Area=request.POST.get("Area")
-        City=request.POST.get("City")
-        State=request.POST.get("State")
-        PinCode=request.POST.get("PinCode")
-        Country=request.POST.get("Country")
-        COD=request.POST.get("COD")
-        data={
-            "address":address,
-            "Area":Area,
-            "City":City,
-            "State":State,
-            "Pincode":PinCode,
-            "Country":Country
-        }
-        payment=""
-        if COD!=None:
-            payment="Cash On Delivery"
-        else:
-            payment="Card"
-        # print("kalai")
-        orderdata=OrderDetails.objects.raw("select * from checkout_OrderDetails where status=='In Progress'")
+# def checkout(request):
+#     query="""SELECT "checkout_orderitemmapping"."id","books_itemdetails"."name",
+#     "checkout_orderitemmapping"."amount" as total_amount,"books_itemdetails"."image",
+#     "checkout_orderitemmapping"."quantity" as qty FROM "checkout_orderitemmapping" INNER JOIN "checkout_orderdetails" 
+#     ON ("checkout_orderitemmapping"."orderDetails_id" = "checkout_orderdetails"."id") 
+#     INNER JOIN "books_itemdetails" ON ("checkout_orderitemmapping"."itemDetails_id" = "books_itemdetails"."id")
+#     where "checkout_orderdetails"."status"='In Progress'"""
+#     # query= """select * from checkout_OrderItemMapping where orderDetails='physics'"""
+#     data = OrderItemMapping.objects.raw(query)
+#     totalitem=len(data)
+#     totalproduct=0
+#     totalamount=0
+#     for i in data:
+#         totalamount+=i.total_amount
+#         totalproduct+=i.qty
+#     if(request.method=="POST"):
+#         address=request.POST.get("address")
+#         Area=request.POST.get("Area")
+#         City=request.POST.get("City")
+#         State=request.POST.get("State")
+#         PinCode=request.POST.get("PinCode")
+#         Country=request.POST.get("Country")
+#         COD=request.POST.get("COD")
+#         data={
+#             "address":address,
+#             "Area":Area,
+#             "City":City,
+#             "State":State,
+#             "Pincode":PinCode,
+#             "Country":Country
+#         }
+#         payment=""
+#         if COD!=None:
+#             payment="Cash On Delivery"
+#         else:
+#             payment="Card"
+#         # print("kalai")
+#         orderdata=OrderDetails.objects.raw("select * from checkout_OrderDetails where status=='In Progress'")
         
-        OrderDetails.objects.filter(id=orderdata[0].id).update(address=data,paymenttype=payment,status="Completed")
+#         OrderDetails.objects.filter(id=orderdata[0].id).update(address=data,paymenttype=payment,status="Completed")
         
 
-    return render(request,'checkout/checkout.html',{"totalitem":totalitem,"totalamount":totalamount,"totalproduct":totalproduct})
+#     return render(request,'checkout/checkout.html',{"totalitem":totalitem,"totalamount":totalamount,"totalproduct":totalproduct})
+
+def checkout(request):
+    user_id = request.user.id  # Assuming the user is logged in and you have the user ID
+
+    query = """
+    SELECT "checkout_orderitemmapping"."id","checkout_orderdetails"."id" as orderid, "books_itemdetails"."name",
+    "checkout_orderitemmapping"."amount" as total_amount, "books_itemdetails"."image",
+    "checkout_orderitemmapping"."quantity" as qty FROM "checkout_orderitemmapping"
+    INNER JOIN "checkout_orderdetails" ON ("checkout_orderitemmapping"."orderDetails_id" = "checkout_orderdetails"."id")
+    INNER JOIN "books_itemdetails" ON ("checkout_orderitemmapping"."itemDetails_id" = "books_itemdetails"."id")
+    WHERE "checkout_orderdetails"."status"='In Progress' AND "checkout_orderdetails"."userid"=%s
+    """
+    data = OrderItemMapping.objects.raw(query, [user_id])
+    totalitem = len(data)
+    totalproduct = sum(item.qty for item in data)
+    totalamount = sum(item.total_amount for item in data)
+
+    if request.method == "POST":
+        address = {
+            "address": request.POST.get("address"),
+            "Area": request.POST.get("Area"),
+            "City": request.POST.get("City"),
+            "State": request.POST.get("State"),
+            "PinCode": request.POST.get("PinCode"),
+            "Country": request.POST.get("Country")
+        }
+        payment_type = "COD" if request.POST.get("COD") else "Card"
+
+        # Get the order in progress for the current user
+        order = OrderDetails.objects.filter(userid=user_id, status='In Progress').first()
+        print(order)
+        orderid = order.id
+        if order:
+            order.address = address
+            order.paymenttype = payment_type
+            order.status = 'Completed'
+            order.date = timezone.now()
+            order.save()
+
+        return redirect(reverse('ordersummary', args=[orderid]))
+
+    return render(request, 'checkout/checkout.html', {"totalitem": totalitem, "totalamount": totalamount, "totalproduct": totalproduct})
+
+def ordersummary(request,id):
+    print('naaz')
+    print(id)
+    order = OrderDetails.objects.filter(id=id).first()
+    order_items = OrderItemMapping.objects.filter(orderDetails=order)
+    return render (request,'checkout/ordersummary.html', {"order":order,"order_items":order_items})
+
 
 @login_required
 def add_to_cart(request):
@@ -140,34 +190,34 @@ def add_to_cart(request):
         # Update the amount
         order_item.amount = order_item.quantity * item.amount 
         order_item.save()
-        messages.success(request, "Item added to cart successfully!")
+        # messages.success(request, "Item added to cart successfully!")
         return redirect('books')  # Assuming 'books' is the name of the URL pattern for books.html
 
-    messages.error(request, "Invalid request")
+    # messages.error(request, "Invalid request")
     return redirect('books')  
         
     #     return JsonResponse({"message": "Item added to cart successfully!"})
 
     # return JsonResponse({"error": "Invalid request"}, status=400)
-def ordersummary(request):
-    productDetails=[{
-        "name":"phyiscs",
-        "qty":2,
-        "amount":"$ "+ str(180),
-        "total_amount":"$ "+ str(360),
-        "image":"2.jpg",
-        "index":0
+# def ordersummary(request):
+#     productDetails=[{
+#         "name":"phyiscs",
+#         "qty":2,
+#         "amount":"$ "+ str(180),
+#         "total_amount":"$ "+ str(360),
+#         "image":"2.jpg",
+#         "index":0
 
-    },
-    {
-        "name":"science",
-        "qty":3,
-        "amount":"$ "+ str(180),
-        "total_amount":"$ "+ str(180),
-        "image":"3.jpg",
-        "index":1
+#     },
+#     {
+#         "name":"science",
+#         "qty":3,
+#         "amount":"$ "+ str(180),
+#         "total_amount":"$ "+ str(180),
+#         "image":"3.jpg",
+#         "index":1
 
-    }
-    ]
-    data={"cartInfo":productDetails}
-    return render(request,'checkout/ordersummary.html',data)
+#     }
+#     ]
+#     data={"cartInfo":productDetails}
+#     return render(request,'checkout/ordersummary.html',data)
