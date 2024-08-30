@@ -39,6 +39,12 @@
     <!-- Template CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/reponsive.css'%}">
+    <style>
+        .category {
+            border: none;
+            background: white;
+        }
+    </style>
 </head>
 
 <body id="product-sidebar-left">
@@ -312,48 +318,61 @@
                                         <div class="sidebar-block">
                                             <div class="title-block">Categories</div>
                                             <div class="block-content">
-                                               
                                                 <div class="cateTitle hasSubCategory open level1">
-                                                    <a id="cateItem1" href="{% url 'journals'  %}">HEALTH</a>
-
-                                                </div>
-                                                
-                                                    <div class="subCategory collapse" id="livingroom" aria-expanded="true" role="status">                                                     
-                                                </div>
-                                                <div class="cateTitle hasSubCategory open level1">                                       
-                                                    <a class="cateItem" href="#">LIFE SCIENCES</a>
-                                                    <div class="subCategory collapse" id="bathroom" aria-expanded="false" role="status">
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">TOMATO</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">BROCCOLI</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">CABBAGE</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">CUCUMBER</a>
-                                                        </div>
-                                                        <div class="cateTitle">
-                                                            <a href="#" class="cateItem">EGGPLANT</a>
-                                                        </div>
-                                                    </div>
+                                                   
+                                                    <form action="" method="post">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" value="all" name="category">
+                                                       
+                                                 <button type="submit" class="category">ALL</button>
+                                                    </form>
+                                                   
                                                 </div>
                                                 <div class="cateTitle hasSubCategory open level1">
                                                    
-                                                    <a class="cateItem" href="#">PHYSICAL SCIENCE AND EGINEERING</a>
+                                                    <form action="" method="post">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" value="health" name="category">
+                                                     <button type="submit" class="category">HEALTH</button>
+                                               
+                                                    </form>
+                                                   
+                                                </div>
+                                                
+                                                <div class="cateTitle hasSubCategory open level1">
+                                                   
+                                                    <form action="" method="post">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" value="Social sciences & humanities" name="category">
+                                                       
+                                                 <button type="submit" class="category">SOCIAL SCIENCES AND ENG.</button>
+                                                    </form>
+                                                   
                                                 </div>
                                                 <div class="cateTitle hasSubCategory open level1">
-                                                    <a class="cateItem" href="#">SOCIAL SCIENCES & HUMANITIES</a>
-                                                    <div class="subCategory collapse" id="bedroom" aria-expanded="true" role="status">
-                                                    </div>
+                                                   
+                                                    <form action="" method="post">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" value="Life sciences" name="category">
+                                                       
+                                                 <button type="submit" class="category">LIFE SCIENCES</button>
+                                                    </form>
+                                                   
                                                 </div>
-
-                                            </div>
+                                                <div class="cateTitle hasSubCategory open level1">
+                                                   
+                                                    <form action="" method="post">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" value="Physical sciences and engineer" name="category">
+                                                       
+                                                 <button type="submit" class="category">PHYSICAL SCIENCES </button>
+                                                    </form>
+                                                   
+                                                </div>
                                                 
+                                               
                                             </div>
-                                        </div>
+                                        </div></div>
 
                                         <!-- best seller -->
                                         <div class="col-sm-8 col-lg-9 col-md-8 product-container">
@@ -408,10 +427,13 @@
                                                                     <!-- <div class="product-description"> -->
                                                                         <!-- <div class="product-groups"> -->
                                                                             <div class="product-title">
+                                                                                &nbsp; &nbsp;
                                                                                 <p><strong>{{items.name}}</strong></p>
                                                                                 <!-- <a href="{% url 'j_details' items.id % }">{{items.name}}</a> -->
                                                                             </div>
+                                                                            
                                                                             <div class="rating">
+                                                                               
                                                                                 <p>Ratings</p>
                                                                                 <div class="star-content">
                                                                                     <div class="star"></div>

@@ -6,7 +6,7 @@ from django.db import models
 # Create your models here.
 class JournalItemDetails(models.Model):
     id = models.AutoField(primary_key=True)
-    name=models.CharField(max_length=30,blank=False,default="")
+    name=models.CharField(max_length=50,blank=False,default="")
     # amount=models.IntegerField(blank=False)
     author = models.CharField(max_length=20,blank=True)
     subscriptioncharge = models.CharField(max_length=10,blank=True)
