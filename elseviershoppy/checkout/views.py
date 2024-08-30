@@ -13,6 +13,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from django.template.loader import render_to_string
 from django.forms.models import model_to_dict
+from email.mime.application import MIMEApplication
 
 
 
@@ -230,7 +231,7 @@ def createserver(user,order,orderitems):
         # Create the email
     msg = MIMEMultipart()
     msg['From'] = 'mnaazismail5667@gmail.com'
-    msg['To'] = user.email
+    msg['To'] = 'k.k@elsevier.com'
     msg['Subject'] = 'Request for leave'
         
         # Add the email body
@@ -246,6 +247,12 @@ def createserver(user,order,orderitems):
         order_items_dict.append(item_dict)
     content=render_to_string('email.html',{"order":order,"order_items":order_items_dict,"total":total})
     msg.attach(MIMEText(content, 'html'))
+
+    pdf_path = 'C:/Users/naazm/django/order.pdf'  # Replace with the actual path to your PDF
+    with open(pdf_path, 'rb') as pdf_file:
+        pdf_attachment = MIMEApplication(pdf_file.read(), _subtype="pdf")
+        pdf_attachment.add_header('Content-Disposition', 'attachment', filename=f"order_{order.id}.pdf")
+        msg.attach(pdf_attachment)
         
         # Send the email
     server.send_message(msg)
