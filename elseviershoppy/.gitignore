@@ -6,6 +6,7 @@ migrations/
 
 # Django
 *.sqlite3
+assets/
 /staticfiles/
 
 # Environment Variables

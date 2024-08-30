@@ -14,4 +14,5 @@ def books(request):
 def booksdetails(request,id):
     # return render (request,'books/booksdetails.html')
     book = get_object_or_404(ItemDetails, id=id)
+    print(book)
     return render(request, 'books/booksdetails.html', {'book': book})
