@@ -47,7 +47,7 @@ def createserver(journals,user):
     msg['Subject'] = 'Request for leave'
         
         # Add the email body
-    text = 'Hi how are you'
+    text = 'Thank you for your recent purchase from ElsevierShoppy, our dedicated e-commerce platform for accessing a wide range of academic journals and publications.'
     # order_items_dict = []
     # total=0
     # for item in orderitems:
