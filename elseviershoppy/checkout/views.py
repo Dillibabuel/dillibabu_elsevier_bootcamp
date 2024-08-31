@@ -231,7 +231,7 @@ def createserver(user,order,orderitems):
         # Create the email
     msg = MIMEMultipart()
     msg['From'] = 'mnaazismail5667@gmail.com'
-    msg['To'] = 'k.k@elsevier.com'
+    msg['To'] = user.email
     msg['Subject'] = 'Request for leave'
         
         # Add the email body
