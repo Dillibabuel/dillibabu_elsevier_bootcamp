@@ -21,8 +21,9 @@ def journals(request):
         jdata = {"journallistdata": journallistdata}
     return render(request,'journals/journals.html', jdata)
 
-def j_details(request,id,user):
+def j_details(request,id):
     #print(id)
+    user = request.user
     items = get_object_or_404(JournalItemDetails, id=id)
     if request.method=="POST":
         createserver(items,user)
@@ -42,9 +43,9 @@ def createserver(journals,user):
     server.starttls()
     server.login('mnaazismail5667@gmail.com', 'vmiaaltickbehvqh')
     msg = MIMEMultipart()
-    msg['From'] = 'mnaazismail5667@gmail.com'
+    msg['From'] = 'akshathamayya23@gmail.com'
     msg['To'] = user.email
-    msg['Subject'] = 'Request for leave'
+    msg['Subject'] = 'Requested Journal'
         
         # Add the email body
     text = 'Thank you for your recent purchase from ElsevierShoppy, our dedicated e-commerce platform for accessing a wide range of academic journals and publications.'

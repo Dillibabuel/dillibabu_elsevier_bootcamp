@@ -66,7 +66,7 @@
                 <!-- logo -->
                 <div class="mobile-logo">
                     <a href="{% url 'index' %}">
-                        <img class="logo-mobile img-fluid" src="{% static 'img/home/logo-mobie.png' %}" alt="Prestashop_Furnitica">
+                        <img class="logo-mobile img-fluid" src="/static/img/home/shoppy_logo_1.png" alt="Prestashop_Furnitica">
                     </a>
                 </div>
 
@@ -436,12 +436,12 @@
                 <div class="verticalmenu" role="navigation">
                     <ul class="menu level1">
                         <li class="item  parent">
-                            <a href="#" class="hasicon" title="SIDE TABLE">
-                                <img src="{% static 'img/home/table-lamp.png' %}" alt="img">SIDE TABLE</a>
-                            <span class="arrow collapsed" data-toggle="collapse" data-target="#SIDE-TABLE" aria-expanded="false" role="status">
+                            <a href="{% url 'books'%}" class="hasicon" title="BOOKS">
+                                <img src="{% static 'img/home/shelf.png'%}" alt="img">BOOKS</a>
+                            <!-- <span class="arrow collapsed" data-toggle="collapse" data-target="#SIDE-TABLE" aria-expanded="false" role="status">
                                 <i class="zmdi zmdi-minus"></i>
                                 <i class="zmdi zmdi-plus"></i>
-                            </span>
+                            </span> -->
                             <div class="subCategory collapse" id="SIDE-TABLE" aria-expanded="true" role="status">
                                 <div class="menu-items">
                                     <ul>
@@ -489,7 +489,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="item  parent group">
+                        <!--<li class="item  parent group">
                             <a href="#" class="hasicon" title="FI">
                                 <img src="{% static 'img/home/fireplace.png' %}" alt="img">FIREPLACE
                             </a>
@@ -741,7 +741,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="item group-category-img parent group">
+                         <li class="item group-category-img parent group">
                             <a href="#" class="hasicon" title="TABLE LAMP">
                                 <img src="{% static 'img/home/table-lamp.png' %}" alt="img">TABLE LAMP</a>
                             <span class="arrow collapsed" data-toggle="collapse" data-target="#table-lamp" aria-expanded="false" role="status">
@@ -877,13 +877,13 @@
                         <li class="item">
                             <a href="#" class="hasicon" title="COFFEE TABLE">
                                 <img src="{% static 'img/home/coffee_table.png'%}" alt="img">COFFEE TABLE</a>
-                        </li>
+                        </li> -->
                         <li class="item">
-                            <a href="#" class="hasicon" title="SHELF">
-                                <img src="{% static 'img/home/shelf.png'%}" alt="img">SHELF
+                            <a href="{% url 'journals'%}" class="hasicon" title="BOOKS">
+                                <img src="{% static 'img/home/wardrobe.png'%}" alt="img">JOURNALS
                             </a>
                         </li>
-                        <li class="item">
+                        <!-- <li class="item">
                             <a href="#" class="hasicon" title="SOFA">
                                 <img src="{% static 'img/home/sofa.png' %}" alt="img">SOFA
                             </a>
@@ -931,7 +931,7 @@
                         <li class="item">
                             <a href="#" class="hasicon" title="BED BOY">
                                 <img src="{% static 'img/home/bed.png' %}" alt="img">BED BOY</a>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
