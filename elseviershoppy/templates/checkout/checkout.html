@@ -1,7 +1,30 @@
 {% extends 'layouts.html' %}
 {% load static %}
 {% block 'mainsection' %}
+<script>
+    function validateForm() {
+        var address = document.forms["customer-form"]["address"].value;
+        var area = document.forms["customer-form"]["Area"].value;
+        var city = document.forms["customer-form"]["City"].value;
+        var state = document.forms["customer-form"]["State"].value;
+        var pinCode = document.forms["customer-form"]["PinCode"].value;
+        var country = document.forms["customer-form"]["Country"].value;
+        var payment1 = document.getElementById("payment1").checked;
+        var payment2 = document.getElementById("payment2").checked;
 
+        if (address == "" || area == "" || city == "" || state == "" || pinCode == "" || country == "") {
+            alert("All fields must be filled out");
+            return false;
+        }
+
+        if (!payment1 && !payment2) {
+            alert("Please select a payment method");
+            return false;
+        }
+
+        return true;
+    }
+</script>
 
 <div id="checkout" class="main-content">
     <div class="wrap-banner">
@@ -11,12 +34,12 @@
                 <div class="breadcrumb">
                     <ol>
                         <li>
-                            <a href="#">
+                            <a href="{% url 'index' %}">
                                 <span>Home</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{% url 'checkout' %}">
                                 <span>Checkout</span>
                             </a>
                         </li>
@@ -50,43 +73,43 @@
                                                         <input type="hidden" name="id_customer" value="">
                                                         <div class="form-group row">
                                                             <input class="form-control" name="address" type="address"
-                                                                placeholder="Street Address">
+                                                                placeholder="Street Address" required>
                                                         </div>
                                                         <div class="form-group row">
                                                             <input class="form-control" name="Area" type="Area"
-                                                                placeholder="Area">
+                                                                placeholder="Area" required>
                                                         </div>
                                                         <div class="form-group row">
                                                             <input class="form-control" name="City" type="City"
-                                                                placeholder="City">
+                                                                placeholder="City" required>
                                                         </div>
                                                         <div class="form-group row">
                                                             <input class="form-control" name="State" type="State"
-                                                                placeholder="State">
+                                                                placeholder="State" required>
                                                         </div>
                                                         <div class="form-group row">
 
                                                             <input class="form-control" name="PinCode" type="PinCode"
-                                                                placeholder="PinCode">
+                                                                placeholder="PinCode" required>
 
 
 
                                                         </div>
                                                         <div class="form-group row">
                                                             <input class="form-control" name="Country" type="Country"
-                                                                placeholder="Country">
+                                                                placeholder="Country" required>
                                                         </div>
                                                         <h3 class="step-title h3 info">
                                                             <span class="step-number"></span>Payment
                                                         </h3>
                                                     </br>
                                                         <div class="form-group row">
-                                                            <input type="radio" id="payment1" name="COD" value="COD">
+                                                            <input type="radio" id="payment1" name="COD" value="COD" checked required>
                                                             <label for="payment1">Cash On Delivery</label>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <input type="radio" id="payment2" name="Card" value="Card">
-                                                            <label for="Card">Card</label>
+                                                            <input type="radio" id="payment2" name="Card" value="Card" disabled>
+                                                            <label for="Card">Card(Coming soon!)</label>
                                                         </div>
 
 

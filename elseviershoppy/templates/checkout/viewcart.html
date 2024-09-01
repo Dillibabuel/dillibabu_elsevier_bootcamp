@@ -1,234 +1,199 @@
 {% extends 'layouts.html' %}
 {% load static %}
 {% block 'mainsection' %}
+
+<style>
+    .orderheader {
+        background-color: #f25e0c;
+        color: white;
+        padding: 5px;
+        text-align: center;
+        border-radius: 8px 8px 0 0;
+    }
+    .ordersummary {
+        text-align: center;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+    .col-2 {
+        flex: 0 0 16.6667%;
+        max-width: 16.6667%;
+        padding: 5px;
+    }
+    .col-8 {
+        flex: 0 0 66.6667%;
+        max-width: 66.6667%;
+        padding: 5px;
+    }
+    .total-amount {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #d9534f;
+    }
+    .product-line-grid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+    .product-image {
+        width: 100px;
+        height: auto;
+        margin-right: 20px;
+    }
+    .product-line-info {
+        margin-bottom: 10px;
+    }
+    .product-price {
+        font-weight: bold;
+    }
+    .label {
+        font-weight: bold;
+    }
+    .quantity, .total {
+        font-weight: bold;
+    }
+    .remove {
+        background-color: inherit;
+        border: none;
+        color: red;
+        cursor: pointer;
+    }
+    .empty-cart {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .empty-cart h1 {
+        font-size: 1.5em;
+        color: #d9534f;
+    }
+    .empty-cart .btn {
+        background-color: white;
+        color: #f25e0c;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .empty-cart .btn:hover {
+        background-color: #45a049;
+    }
+    .total-amount {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #d9534f;
+    text-align: right;
+    margin-top: 20px;
+}
+</style>
+
+
 <!-- main content -->
-<div class="main-content" id="cart">
-    <!-- main -->
-    <div id="wrapper-site">
-        <!-- breadcrumb -->
-        <nav class="breadcrumb-bg">
-            <div class="container no-index">
-                <div class="breadcrumb">
-                    <ol>
-                        <li>
-                            <a href="#">
-                                <span>Home</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span>Shopping Cart</span>
-                            </a>
-                        </li>
-                    </ol>
+<div id="checkout" class="main-content">
+    <div class="wrap-banner">
+        <!-- main -->
+        <div id="wrapper-site">
+            <div style="margin:0px; min-width: 100%;" class="container">
+                <div class="row">
+                    <div class="orderheader col-12">Shopping Cart</div>
                 </div>
-            </div>
-        </nav>
-        <div class="container">
-            <div class="row">
-                <div id="content-wrapper" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 onecol">
-                    <section id="main">
-                        <div class="cart-grid row">
-                            <div class="col-md-9 col-xs-12 check-info">
-                                <h1 class="title-page">Shopping Cart</h1>
-                                {% if totalitem > 0 %}
-                                <div class="cart-container">
-                                    <div class="cart-overview js-cart">
-                                        <ul class="cart-items">
-                                            {% for item in cartInfo %}
-                                            <li class="cart-item">
-                                                <div class="product-line-grid row justify-content-between">
-                                                    <!--  product left content: image-->
-                                                    <div class="product-line-grid-left col-md-2">
-                                                        <span class="product-image media-middle">
-                                                            <a href="product-detail.html">
-                                                                <img class="img-fluid" src="{{ item.itemDetails.image.url }}"
-                                                                    alt="{{ item.itemDetails.name }}">
-                                                            </a>
-                                                        </span>
-                                                    </div>
-                                                    <div class="product-line-grid-body col-md-6">
-                                                        <div class="product-line-info">
-                                                            <a class="label" href="product-detail.html"
-                                                                data-id_customization="0">{{ item.itemDetails.name }}</a>
-                                                        </div>
-                                                        <div class="product-line-info product-price">
-                                                            <span class="value">{{item.amount}}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="product-line-grid-right text-center product-line-actions col-md-4">
-                                                        <div class="row">
-                                                            <div class="col-md-3 col qty">
-                                                                <div class="label">Qty:</div>
-                                                                <div class="quantity">
-                                                                    {{item.quantity}}
-
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3 col price">
-                                                                <div class="label">Total:</div>
-                                                                <div class="product-price total">
-                                                                    {{item.totalamount}}
-                                                                    {{item.amount}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3 col price">
-                                                                <form method="post" action="">
-                                                                    {% csrf_token %}
-                                                                    <input type="hidden" name="mapid" value="{{ item.id }}">
-                                                                    <button style="background-color: inherit;" class="remove" type="submit"><span
-                                                                            style="color:red">Remove</span></button>
-                                                                </form>
-                                                            </div>
-                
-                                                            <div class="col-md-2 col text-xs-right align-self-end">
-                                                                <div class="cart-line-product-actions ">
-                                                                    <!-- <form method="post" action="">
-                                                                        {% csrf_token %}
-                                                                        <input type="hidden" name="mapid"
-                                                                            value="{{item.id}}">
-                                                                        <button class="remove" type="submit"><span
-                                                                                style="color:red">Remove</span></button>
-                                                                    </form> -->
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                           <span style="display: block; height:2px"></span>
-                                            {% endfor %}
-
-
-                                        </ul>
-                                    </div>
-                                </div>
-                                <a href="{% url 'checkout' %}" style="background-color: black;padding-bottom: 5px;" class="continue btn btn-primary pull-xs-right">
-                                    Continue
-                                </a>
-                                {% else %}
-            <!-- Display a button to redirect to the books page if the cart is empty -->
-            <div class="empty-cart">
-                <h1>Your Shopping Cart is Empty</h1>
-                <a href="{% url 'books' %}" class="btn btn-secondary">Go to Books Page</a>
-            </div>
-        {% endif %}
-                            </div>
-
-                            <div class="col-md-9 col-xs-12 check-info">
-                                <h1 class="title-page">Shopping Cart</h1>
-                                {% if totalitem > 0 %}
-
-                                <div class="cart-container">
-                                    <div class="cart-overview js-cart">
-                                        <ul class="cart-items">
-                                            {% for item in cartInfo %}
-
-
-                                            <li class="cart-item">
-                                                <div class="product-line-grid row justify-content-between">
-                                                    <!--  product left content: image-->
-                                                    <div class="product-line-grid-left col-md-2">
-                                                        <span class="product-image media-middle">
-                                                            <a href="product-detail.html">
-                                                                <img class="img-fluid" src="{{ item.itemDetails.image.url }}" alt="{{ item.itemDetails.name }}">                                                            </a>
-                                                        </span>
-                                                    </div>
-                                                    <div class="product-line-grid-body col-md-6">
-                                                        <div class="product-line-info">
-                                                            <a class="label" href="product-detail.html" data-id_customization="0">{{ item.itemDetails.name }}</a>
-                                                        </div>
-                                                        <div class="product-line-info product-price">
-                                                            <span class="value">£{{item.amount}}</span>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                    <div class="product-line-grid-right text-center product-line-actions col-md-4">
-                                                        <div class="row">
-                                                            <div class="col-md-5 col qty">
-                                                                <div class="label">Qty:</div>
-                                                                <div class="quantity">
-                                                                    {{item.quantity}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-5 col price">
-                                                                <div class="label">Total:</div>
-                                                                <div class="product-price total">
-                                                                    {{item.amount}}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3 col price">
-
-                                                                <form method="post" action="">
-
-                                                                    {% csrf_token %}
-
-                                                                    <input type="hidden" name="mapid" value="{{ item.id }}">
-
-                                                                    <button style="background-color: inherit;" class="remove" type="submit"><span
-
-                                                                            style="color:red">Remove</span></button>
-
-                                                                </form>
-
-                                                            </div>
-                                                            <div class="col-md-2 col text-xs-right align-self-end">
-                                                                <div class="cart-line-product-actions ">
-                                                                    <a class="remove-from-cart" rel="nofollow" href="#" data-link-action="delete-from-cart" data-id-product="1">
-                                                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-
-                                            <span style="display: block; height:2px"></span>
- 
-                                             {% endfor %}
- 
- 
- 
- 
- 
-                                         </ul>
- 
-                                     </div>
- 
-                                 </div>
- 
-                                 <a href="{% url 'checkout' %}" style="background-color: black;padding-bottom: 5px;" class="continue btn btn-primary pull-xs-right">
- 
-                                     Continue
- 
-                                 </a>
- 
-                                 {% else %}
- 
-             <!-- Display a button to redirect to the books page if the cart is empty -->
- 
-             <div class="empty-cart">
- 
-                 <h1>Your Shopping Cart is Empty</h1>
- 
-                 <a href="{% url 'books' %}" class="btn btn-secondary">Go to Books Page</a>
- 
-             </div>
- 
-         {% endif %}
-                                        </ul>
-                                    </div>
-                                </div>
-                                <a href="product-checkout.html" class="continue btn btn-primary pull-xs-right">
-                                    Continue
-                                </a>
-                            </div>
-                            {% include 'checkout/cartsummary.html' %}
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <div>
+                            <div class="ordersummary">Order Summary</div>
+                            <hr/>
                         </div>
-                    </section>
+                    </div>
+                    <div class="col-2"></div>
                 </div>
+                {% if totalitem > 0 %}
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <ul>
+                            {% for item in cartInfo %}
+                                <li>
+                                    <div class="product-line-grid row justify-content-between">
+                                        <div class="product-line-grid-left col-md-2">
+                                            <span class="product-image media-middle">
+                                                <img class="img-fluid" src="{{ item.image_url }}" alt="{{ item.item_name }}">
+                                            </span>
+                                        </div>
+                                        <div class="product-line-grid-body col-md-6">
+                                            <div class="product-line-info">
+                                                <span class="label">{{ item.item_name }}</span>
+                                            </div>
+                                            <div class="product-line-info product-price">
+                                                <span class="value">${{ item.single_amount }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="product-line-grid-right text-center product-line-actions col-md-4">
+                                            <div class="row">
+                                                <div class="col-md-3 col qty">
+                                                    <div class="label">Qty:</div>
+                                                    <div class="quantity">{{ item.quantity }}</div>
+                                                </div>
+                                                <div class="col-md-3 col price">
+                                                    <div class="label">Total:</div>
+                                                    <div class="product-price total">${{ item.amount }}</div>
+                                                </div>
+                                                <div class="col-md-3 col price">
+                                                    <form method="post" action="">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="mapid" value="{{ item.id }}">
+                                                        <button style="background-color: inherit;" class="remove" type="submit">
+                                                            <span style="color:red">Remove</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <span style="display: block; height:2px"></span>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <div class="total-amount">
+                            <span>Total Amount:</span>
+                            <span>${{ totalamount }}</span>
+                        </div>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <a href="{% url 'checkout' %}" style="background-color: black; padding-bottom: 5px;" class="continue btn btn-primary pull-xs-right">
+                            Continue
+                        </a>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8 empty-cart">
+                        <h1>Your Shopping Cart is Empty</h1>
+                        <a href="{% url 'books' %}" class="btn btn-secondary">Go to Books Page</a>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>

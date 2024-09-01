@@ -38,6 +38,138 @@
     <!-- Template CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/reponsive.css'%}">
+
+    <style>
+ 
+
+.main-product-detail h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.product-single {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.product-detail {
+    flex: 0 0 40%;
+    max-width: 40%;
+    text-align: center;
+}
+
+.product-detail img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+    flex: 0 0 60%;
+    max-width: 60%;
+    padding: 20px;
+}
+
+.detail-description {
+    margin-bottom: 20px;
+}
+
+.price-del .price {
+    font-size: 1.5em;
+    color: #d9534f;
+    font-weight: bold;
+}
+
+.description {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.cart-area {
+    margin-top: 20px;
+}
+
+.product-quantity {
+    margin-bottom: 20px;
+}
+
+.qty .input-group {
+    display: flex;
+    align-items: center;
+}
+
+.qty .input-group .quantity {
+    margin-right: 10px;
+}
+
+.qty .input-group .quantity .control-label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.qty .input-group .form-control {
+    width: 60px;
+    text-align: center;
+}
+
+.add .btn {
+    background-color: #f25e0c;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.add .btn:hover {
+    background-color: #45a049;
+}
+
+.review {
+    margin-top: 40px;
+}
+
+.review .nav-tabs {
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.review .nav-tabs li {
+    margin-right: 10px;
+}
+
+.review .nav-tabs li a {
+    padding: 10px 20px;
+    border-radius: 5px 5px 0 0;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    color: #333;
+    text-decoration: none;
+}
+
+.review .nav-tabs li a:hover {
+    background-color: #e9e9e9;
+}
+
+.review .nav-tabs li.active a {
+    background-color: #fff;
+    border-bottom: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.review .tab-content {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 0 0 5px 5px;
+    background-color: #fff;
+}
+    </style>
 </head>
 
 <body id="product-sidebar-left">
@@ -66,20 +198,15 @@
 
             <!-- search -->
             <div id="mobile_search" class="d-flex">
-                <div id="mobile_search_content">
-                    <form method="get" action="#">
-
-                        <input type="text" name="s" value="" placeholder="Search">
-                        <button type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </form>
-                </div>
+                
                 <div class="desktop_cart">
                     <div class="blockcart block-cart cart-preview tiva-toggle">
                         <div class="header-cart tiva-toggle-btn">
-                            <span class="cart-products-count">1</span>
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                            {% if totalitem > 0 %}
+                            <span class="cart-products-count">{{ totalitem }}</span>
+                                  {% endif %}
+                                  
+                                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         </div>
                         <div class="dropdown-content">
                             <div class="cart-content">
@@ -163,14 +290,7 @@
 
                     <!-- search and acount -->
                     <div class="col-sm-5 col-md-5 d-flex align-items-center justify-content-end" id="search_widget">
-                        <form method="get" action="#">
-
-                            <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
-                            <input type="text" name="s" value="" placeholder="Search" class="ui-autocomplete-input" autocomplete="off">
-                            <button type="submit">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </form>
+                        
 
                         <div id="block_myaccount_infos" class="hidden-sm-down dropdown">
                             <div class="myaccount-title">
@@ -232,7 +352,9 @@
                                 <div class="blockcart block-cart cart-preview tiva-toggle">
                                     <div class="header-cart tiva-toggle-btn">
     
-                                        
+                                        {% if totalitem > 0 %}
+                            <span class="cart-products-count">{{ totalitem }}</span>
+                                  {% endif %}
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     </div>
                         </a>
@@ -309,25 +431,18 @@
                                                                 <div class="input-group">
                                                                     <div class="quantity">
                                                                         <span class="control-label">QTY : </span>
-                                                                        <input type="text" name="qty" id="quantity_wanted" value="1" class="input-group form-control">
+                                                                        <input type="number" name="qty" id="quantity_wanted" value="1" class="input-group form-control" min="1">
                                                                     </div>
                                                                     <span class="add">
-                                                                        <!-- <button class="btn btn-primary add-to-cart add-item" data-button-action="add-to-cart" type="submit">
-                                                                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                                                            <span>Add to cart</span>
-                                                                        </button> -->
-                                                                        <form method="post" action="{% url 'add_to_cart' %}">
+                                                                        <form method="post" action="{% url 'add_to_cart' %}" onsubmit="updateQuantity(this);">
                                                                             {% csrf_token %}
                                                                             <input type="hidden" name="book_id" value="{{ book.id }}">
-                                                                            <input type="hidden" name="quantity" value="1">
+                                                                            <input type="hidden" name="quantity" id="hidden_quantity" value="1">
                                                                             <button class="btn btn-primary add-to-cart add-item" data-button-action="add-to-cart" type="submit">
                                                                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                                                                 <span>Add to cart</span>
                                                                             </button>
                                                                         </form>
-                                                                        <form method="post" action="{% url 'add_to_cart' %}">
-                                                                       
-                                                                    
                                                                     </span>
                                                                 </div>
                                                             </div>
@@ -364,119 +479,7 @@
                                                     </p>
                                                 </div>
                                                 
-                                                <div id="review" class="tab-pane fade">
-                                                    <div class="spr-form">
-                                                        <div class="user-comment">
-                                                            <div class="spr-review">
-                                                                <div class="spr-review-header">
-                                                                    <span class="spr-review-header-byline">
-                                                                        <strong>Peter Capidal</strong> -
-                                                                        <span>Apr 14, 2018</span>
-                                                                    </span>
-                                                                    <div class="rating">
-                                                                        <div class="star-content">
-                                                                            <div class="star"></div>
-                                                                            <div class="star"></div>
-                                                                            <div class="star"></div>
-                                                                            <div class="star"></div>
-                                                                            <div class="star"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="spr-review-content">
-                                                                    <p class="spr-review-content-body">In feugiat venenatis enim, non finibus metus bibendum
-                                                                        eu. Proin massa justo, eleifend fermentum varius
-                                                                        quis, semper gravida quam. Cras nec enim sed
-                                                                        lacus viverra luctus. Nunc quis accumsan mauris.
-                                                                        Aliquam fermentum sit amet est id scelerisque.
-                                                                        Nam porta risus metus.</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="spr-review preview2">
-                                                                <div class="spr-review-header">
-                                                                    <span class="spr-review-header-byline">
-                                                                        <strong>David James</strong> -
-                                                                        <span>Apr 13, 2018</span>
-                                                                    </span>
-                                                                    <div class="rating">
-                                                                        <div class="star-content">
-                                                                            <div class="star"></div>
-                                                                            <div class="star"></div>
-                                                                            <div class="star"></div>
-                                                                            <div class="star"></div>
-                                                                            <div class="star"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="spr-review-content">
-                                                                    <p class="spr-review-content-body">In feugiat venenatis enim, non finibus metus bibendum
-                                                                        eu. Proin massa justo, eleifend fermentum varius
-                                                                        quis, semper gravida quam. Cras nec enim sed
-                                                                        lacus viverra luctus. Nunc quis accumsan mauris.
-                                                                        Aliquam fermentum sit amet est id scelerisque.
-                                                                        Nam porta risus metus.</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <form method="post" action="#" class="new-review-form">
-                                                        <input type="hidden" name="review[rating]" value="3">
-                                                        <input type="hidden" name="product_id">
-                                                        <h3 class="spr-form-title">Write a review</h3>
-                                                        <fieldset>
-                                                            <div class="spr-form-review-rating">
-                                                                <label class="spr-form-label">Your Rating</label>
-                                                                <fieldset class="ratings">
-                                                                    <input type="radio" id="star5" name="rating" value="5" />
-                                                                    <label class="full" for="star5" title="Awesome - 5 stars"></label>
-                                                                    <input type="radio" id="star4half" name="rating" value="4 and a half" />
-                                                                    <input type="radio" id="star4" name="rating" value="4" />
-                                                                    <label class="full" for="star4" title="Pretty good - 4 stars"></label>
-                                                                    <input type="radio" id="star3half" name="rating" value="3 and a half" />
-                                                                    <input type="radio" id="star3" name="rating" value="3" />
-                                                                    <label class="full" for="star3" title="Meh - 3 stars"></label>
-                                                                    <input type="radio" id="star2half" name="rating" value="2 and a half" />
-                                                                    <input type="radio" id="star2" name="rating" value="2" />
-                                                                    <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
-                                                                    <input type="radio" id="star1half" name="rating" value="1 and a half" />
-                                                                    <input type="radio" id="star1" name="rating" value="1" />
-                                                                    <label class="full" for="star1" title="Sucks big time - 1 star"></label>
-                                                                    <input type="radio" id="starhalf" name="rating" value="half" />
-                                                                </fieldset>
-                                                            </div>
-                                                        </fieldset>
-                                                        <fieldset class="spr-form-contact">
-                                                            <div class="spr-form-contact-name">
-                                                                <input class="spr-form-input spr-form-input-text form-control" value="" placeholder="Enter your name">
-                                                            </div>
-                                                            <div class="spr-form-contact-email">
-                                                                <input class="spr-form-input spr-form-input-email form-control" value="" placeholder="Enter your email">
-                                                            </div>
-                                                        </fieldset>
-                                                        <fieldset>
-                                                            <div class="spr-form-review-body">
-                                                                <div class="spr-form-input">
-                                                                    <textarea class="spr-form-input-textarea" rows="10" placeholder="Write your comments here"></textarea>
-                                                                </div>
-                                                            </div>
-                                                        </fieldset>
-                                                        <div class="submit">
-                                                            <input type="submit" name="addComment" id="submitComment" class="btn btn-default" value="Submit Review">
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div id="tag" class="tab-pane fade in">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem
-                                                        ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                        tempor incididunt ut labore et dolore magna aliqua.
-                                                    </p>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                        eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem
-                                                        ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                        tempor incididunt ut labore et dolore magna aliqua.
-                                                    </p>
-                                                </div>
+                                              
                                             </div>
                                         </div>
                                         
@@ -696,27 +699,7 @@
                                             <i class="zmdi zmdi-minus"></i>
                                             <i class="zmdi zmdi-plus"></i>
                                         </span>
-                                        <div class="subCategory collapse" id="sub-Category" aria-expanded="true" role="status">
-                                            <div class="menu-items">
-                                                <ul>
-                                                    <li class="item">
-                                                        <a href="#" title="Aliquam lobortis">Aliquam lobortis</a>
-                                                    </li>
-                                                    <li class="item">
-                                                        <a href="#" title="Duis Reprehenderit">Duis Reprehenderit</a>
-                                                    </li>
-                                                    <li class="item">
-                                                        <a href="#" title="Voluptate">Voluptate</a>
-                                                    </li>
-                                                    <li class="item">
-                                                        <a href="#" title="Tongue Est">Tongue Est</a>
-                                                    </li>
-                                                    <li class="item">
-                                                        <a href="#" title="Venison Andouille">Venison Andouille</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        
                                     </li>
                                     <li class="item">
                                         <a href="#" title="Voluptate">Voluptate</a>
@@ -739,249 +722,7 @@
                             <i class="zmdi zmdi-minus"></i>
                             <i class="zmdi zmdi-plus"></i>
                         </span>
-                        <div class="subCategory collapse" id="fi" aria-expanded="true" role="status">
-                            <div class="item">
-                                <div class="menu-content">
-                                    <div class="tags d-flex d-xs-flex-inherit">
-                                        <div class="title">
-                                            <b>DINNING ROOM</b>
-                                        </div>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a href="#">Toshiba</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Samsung</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">LG</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Sharp</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Electrolux</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Hitachi</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Panasonic</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Mitsubishi Electric</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Daikin</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Haier</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tags d-flex d-xs-flex-inherit">
-                                        <div class="title">
-                                            <b>BATHROOM</b>
-                                        </div>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a href="#">Toshiba</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Samsung</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">LG</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Sharp</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Electrolux</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Hitachi</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Panasonic</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Mitsubishi Electric</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Daikin</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Haier Media</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Gee</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Digimart</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Vitivaa</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Sanaky</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Sunshine</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tags d-flex d-xs-flex-inherit">
-                                        <div class="title">
-                                            <b>LIVING ROOM</b>
-                                        </div>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a href="#">Media</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Gee</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Digimart</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Vitivaa</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Sanaky</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Sunshine</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Toshiba</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Samsung</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">LG</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Sharp</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Electrolux</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Hitachi</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Panasonic</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Mitsubishi Electric</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Daikin</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Haier</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tags d-flex d-xs-flex-inherit">
-                                        <div class="title">
-                                            <b>BEDROOM</b>
-                                        </div>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a href="#">LG</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Sharp</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Electrolux</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Hitachi</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Panasonic</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Mitsubishi Electric</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Daikin</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Haier</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tags d-flex d-xs-flex-inherit">
-                                        <div class="title">
-                                            <b>KITCHEN</b>
-                                        </div>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a href="#">LG</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Sharp</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Electrolux</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Hitachi</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Panasonic</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Mitsubishi Electric</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Daikin</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Haier</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tags d-flex d-xs-flex-inherit">
-                                        <div class="title">
-                                            <b>Blender</b>
-                                        </div>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a href="#">LG</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Sharp</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Electrolux</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Hitachi</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Panasonic</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Mitsubishi Electric</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Daikin</a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="#">Haier</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </li>
                     <li class="item group-category-img parent group">
                         <a href="#" class="hasicon" title="TABLE LAMP">
@@ -990,116 +731,7 @@
                             <i class="zmdi zmdi-minus"></i>
                             <i class="zmdi zmdi-plus"></i>
                         </span>
-                        <div class="subCategory collapse" id="table-lamp" aria-expanded="true" role="status">
-                            <div class="item">
-                                <div class="menu-content">
-                                    <div class="col-xs-12">
-                                        <span class="menu-title">Coventry dining</span>
-                                        <ul>
-                                            <li>
-                                                <a href="#">Accessories</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Activewear</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">ASOS Basic Tops</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Bags &amp; Purses</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Beauty</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Coats &amp; Jackets</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Curve &amp; Plus Size</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <span class="menu-title">Amara stools</span>
-                                        <ul>
-                                            <li>
-                                                <a href="#">Accessories</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Activewear</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">ASOS Basic Tops</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Bags &amp; Purses</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Beauty</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Coats &amp; Jackets</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Curve &amp; Plus Size</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <span class="menu-title">Kingston dining</span>
-                                        <ul>
-                                            <li>
-                                                <a href="#">Accessories</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Activewear</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">ASOS Basic Tops</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Bags &amp; Purses</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Beauty</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Coats &amp; Jackets</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Curve &amp; Plus Size</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <span class="menu-title">Ellinger dining</span>
-                                        <ul>
-                                            <li>
-                                                <a href="#">Accessories</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Activewear</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">ASOS Basic Tops</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Bags &amp; Purses</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Beauty</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Coats &amp; Jackets</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">Curve &amp; Plus Size</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                     </li>
                     <li class="item">
                         <a href="#" class="hasicon" title="OTTOMAN">
@@ -1333,6 +965,14 @@
 
 <!-- Template JS -->
 <script src="{% static 'js/theme.js' %}"></script>
+
+<script>
+    function updateQuantity(form) {
+        var quantity = document.getElementById('quantity_wanted').value;
+        var hiddenQuantity = form.querySelector('#hidden_quantity');
+        hiddenQuantity.value = quantity;
+    }
+</script>
 </body>
 
 <!-- product-detail07:06-->

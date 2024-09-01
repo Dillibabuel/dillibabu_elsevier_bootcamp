@@ -40,7 +40,7 @@ def journals_by_category(request, category):
 def createserver(journals,user):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login('mnaazismail5667@gmail.com', 'vmiaaltickbehvqh')
+    server.login('mnaazismail5667@gmail.com', 'ycmafanmzixdphkt')
     msg = MIMEMultipart()
     msg['From'] = 'mnaazismail5667@gmail.com'
     msg['To'] = user.email

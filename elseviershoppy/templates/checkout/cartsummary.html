@@ -1,5 +1,5 @@
 {% load static %}
-<div class="cart-grid-right col-xs-12 col-lg-3">
+<!-- <div class="cart-grid-right col-xs-12 col-lg-3">
     <div class="cart-summary test">
         <div class="cart-detailed-totals">
             <div class="cart-summary-products">
@@ -44,4 +44,108 @@
             </li>
         </ul>
     </div>
-</div>
+</div> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Summary</title>
+    <style>
+        .cart-summary {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .cart-summary .cart-detailed-totals {
+            margin-bottom: 20px;
+        }
+        .cart-summary .summary-label {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .cart-summary .cart-summary-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-summary .cart-summary-line:last-child {
+            border-bottom: none;
+        }
+        .cart-summary .label {
+            font-weight: bold;
+        }
+        .cart-summary .value {
+            font-size: 1.1em;
+        }
+        .block-reassurance {
+            margin-top: 20px;
+        }
+        .block-reassurance ul {
+            list-style: none;
+            padding: 0;
+        }
+        .block-reassurance li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .block-reassurance-item {
+            display: flex;
+            align-items: center;
+        }
+        .block-reassurance-item img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        .block-reassurance-item span {
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="cart-summary test">
+        <div class="cart-detailed-totals">
+            <div class="cart-summary-products">
+                <div class="summary-label">There are {{ totalitem }} items in your cart</div>
+            </div>
+            <div class="cart-summary-line" id="cart-subtotal-products">
+                <span class="label js-subtotal">Total products:</span>
+                <span class="value">{{ totalproduct }}</span>
+            </div>
+            <div class="cart-summary-line" id="cart-subtotal-shipping">
+                <span class="label">Total Shipping:</span>
+                <span class="value">Free</span>
+            </div>
+            <div class="cart-summary-line cart-total">
+                <span class="label">Total:</span>
+                <span class="value">${{ totalamount }} (tax incl.)</span>
+            </div>
+        </div>
+        <div id="block-reassurance">
+            <ul>
+                <li>
+                    <div class="block-reassurance-item">
+                        <img src="{% static 'img/product/check1.png' %}" alt="Security policy">
+                        <span>Security policy</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="block-reassurance-item">
+                        <img src="{% static 'img/product/check2.png' %}" alt="Delivery policy">
+                        <span>Delivery policy</span>
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+</body>
+</html>
