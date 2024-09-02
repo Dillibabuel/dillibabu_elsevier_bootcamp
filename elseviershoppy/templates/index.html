@@ -167,19 +167,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="desktop_cart">
-                        <div class="blockcart block-cart cart-preview tiva-toggle">
-                            <div class="header-cart tiva-toggle-btn">
-                                {% if totalitem > 0 %}
+                    <a href="{% url 'viewcart' %}" title="viewcart">
+                        <div class="desktop_cart">
+                        
+                            <div class="blockcart block-cart cart-preview tiva-toggle">
+                                <div class="header-cart tiva-toggle-btn">
+                                    <!-- {% if totalitem > 0 %}
                                <span class="cart-products-count">{{ totalitem }}</span>
-                                     {% endif %}
-                                    
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                            </div>
-                            
-                            {% endif %}
-                        </div>
-                    </div>
+                                     {% endif %} -->
+                                     {% if total_quantity > 0 %}
+                                     <span class="cart-products-count">{{ total_quantity }}</span>
+                                 {% endif %}
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                </div>
+                                {% endif %}
+                                </div></div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -198,10 +201,10 @@
                         <img class="img-responsive" src="{% static 'img/home/img1.jpg' %}" title="#caption1" alt="Slideshow image">
                     </a>
                     <a href="#">
-                        <img class="img-responsive" src="{% static 'img/home/d.jpg' %}" title="#caption2" alt="Slideshow image">
+                        <img class="img-responsive" src="{% static 'img/home/img1.jpg' %}" title="#caption2" alt="Slideshow image">
                     </a>
                     <a href="#">
-                        <img class="img-responsive" src="{% static 'img/home/t.jpeg' %}" title="#caption3" alt="Slideshow image">
+                        <img class="img-responsive" src="{% static 'img/home/img1.jpg' %}" title="#caption3" alt="Slideshow image">
                     </a>
                 </div>
             </div>
@@ -251,21 +254,21 @@
 
                     <!-- banner -->
                     <div class="container">
-                        <div class="section spacing-10 group-image-special col-lg-12 col-xs-12">
+                        <div class="section spacing-10 group-image-special col-lg-12 col-xs-12" style=" padding-top: 100px;">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
-                                     <div class="effect">
-                                        <a href="{% url 'books' %}">
-                                            .&nbsp;.&nbsp;.&nbsp;
-                                            <img class="img-fluid" src="{% static 'img/home/b.jpg' %}" alt="Books" title="Books">
+                                    <div class="effect">
+                                        <a href="{% url 'books' %}" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+                                            <img class="img-fluid" src="{% static 'img/home/books_icon3.png' %}" alt="Books" title="Books" style="width: 65%; height: auto;">
+                                            <span style="margin-top: 10px; font-size: 2em; color: #333;">Books</span>
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="effect">
-                                        <a href="{% url 'journals' %}">
-                                            <b><b>.&nbsp;.&nbsp;.&nbsp;.&nbsp;.&nbsp;.&nbsp;</b></b>
-                                            <img class="img-fluid" src="{% static 'img/home/q.jpg' %}" alt="Journals" title="Journals">
+                                        <a href="{% url 'journals' %}" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+                                            <img class="img-fluid" src="{% static 'img/home/journals_icon.png' %}" alt="Journals" title="Journals" style="width: 65%; height: auto;">
+                                            <span style="margin-top: 10px; font-size: 2em; color: #333;">Journals</span>
                                         </a>
                                     </div>
                                 </div>

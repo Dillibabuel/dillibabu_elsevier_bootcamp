@@ -191,19 +191,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="desktop_cart">
-                            <div class="blockcart block-cart cart-preview tiva-toggle">
-                                <div class="header-cart tiva-toggle-btn">
-                                    {% if totalitem > 0 %}
+                        <a href="{% url 'viewcart' %}" title="viewcart">
+                            <div class="desktop_cart">
+                            
+                                <div class="blockcart block-cart cart-preview tiva-toggle">
+                                    <div class="header-cart tiva-toggle-btn">
+                                        <!-- {% if totalitem > 0 %}
                                    <span class="cart-products-count">{{ totalitem }}</span>
-                                         {% endif %}
-                                        
-                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                </div>
-                                
-                                {% endif %}
-                            </div>
-                        </div>
+                                         {% endif %} -->
+                                         {% if total_quantity > 0 %}
+                                         <span class="cart-products-count">{{ total_quantity }}</span>
+                                     {% endif %}
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    </div>
+                                    {% endif %}
+                                    </div></div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -224,33 +227,13 @@
                             <div class="block">
                                 <div class="block-content" id="logo">
                                     <p class="logo-footer">
-                                        <img class="img-fluid" src="{% static 'img/home/shoppy_logo_1.jpg' %}" alt="img">
+                                        <img class="img-fluid" src="{% static 'img/home/shoppy_logo_1.png' %}" alt="img" style="width: 50%; height: auto;">
                                     </p>
                                     <p class="content-logo">Copyright © 2024 Elsevier, its licensors, and contributors. All rights are reserved, including those for text and data mining, AI training, and similar technologies.
                                     </p>
                                 </div>
                             </div>
-                            <div class="block">
-                                <div class="block-content">
-                                    <ul>
-                                        <li>
-                                            <a href="https://www.elsevier.com/about">About Elsevier</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://elsevier.com/legal/elsevier-website-terms-and-conditions">Terms & Conditions</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.elsevier.com/products/journals?query=&page=1&sortBy=relevance">Privacy Policy</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.elsevier.com/support">Customer support</a>
-                                        </li>
-                                        <!--<li>
-                                            <a href="#">Contact our buyers</a>
-                                        </li> -->
-                                    </ul>
-                                </div>
-                            </div>
+                            
                             <div class="block">
                                 <div class="block-content">
                                     <p class="img-payment ">
@@ -283,41 +266,13 @@
                                             <p>support@elseviershoppydomain.com</p>
                                         </div>
                                     </div>
-                                    <div class="contact-us">
-                                        <div class="title-content">
-                                            <i class="fa fa-phone" aria-hidden="true"></i>
-                                            <span>Hotline :</span>
-                                        </div>
-                                        <div class="content-contact phone-contact">
-                                            <p>+0012-345-67890</p>
-                                        </div>
-                                    </div>
+                                    
                                     
                                 </div>
                             </div>
                         </div>
                         <div class="tiva-modules col-lg-4 col-md-6">
-                            <div class="block m-top">
-                                <div class="block-content">
-                                    <div class="title-block">Newsletter</div>
-                                    <div class="sub-title">Sign up to our newsletter to get the latest articles, lookbooks voucher codes direct
-                                        to your inbox
-                                    </div>
-                                    <div class="block-newsletter">
-                                        <form action="#" method="post">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" name="email" value="" placeholder="Enter Your Email">
-                                                <span class="input-group-btn">
-                                                    <button class="effect-btn btn btn-secondary " name="submitNewsletter" type="submit">
-                                                        <span>subscribe</span>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                            <input type="hidden" name="action" value="0">
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="block m-top1">
                                 <div class="block-content">
                                     <div class="social-content">
