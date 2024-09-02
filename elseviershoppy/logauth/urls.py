@@ -8,6 +8,5 @@ urlpatterns = [
     path('forgotpassword',views.forgotpassword,name='forgotpassword'),
     path('profile',views.profile,name='profile'),
     
-    
 ]
 
