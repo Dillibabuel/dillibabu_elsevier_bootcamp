@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from .models import JournalItemDetails
 from django.http import HttpResponse
-
 import smtplib
+from django.contrib import messages
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from django.template.loader import render_to_string
@@ -26,7 +26,7 @@ def j_details(request,id):
     user = request.user
     items = get_object_or_404(JournalItemDetails, id=id)
     if request.method=="POST":
-        createserver(items,user)
+        createserver(request,items,user)
     print("test")
     print(items)
     # return render(request,'journals/j_details.html' ,  {'items': items})
@@ -38,27 +38,18 @@ def journals_by_category(request, category):
     return render(request, 'journals/journals.html', {'journals': journals, 'category': category})
 
 
-def createserver(journals,user):
+def createserver(request,journals,user):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login('mnaazismail5667@gmail.com', 'ycmafanmzixdphkt')
+    server.login('akshathamayya23@gmail.com', 'qnlsrtkrcmeybfbl')
     msg = MIMEMultipart()
     msg['From'] = 'akshathamayya23@gmail.com'
-    msg['To'] = user.email
+    msg['To'] = 'akshathamayya23@gmail.com'
     msg['Subject'] = 'Requested Journal'
         
         # Add the email body
     text = 'Thank you for your recent purchase from ElsevierShoppy, our dedicated e-commerce platform for accessing a wide range of academic journals and publications.'
-    # order_items_dict = []
-    # total=0
-    # for item in orderitems:
-    #     item_dict = model_to_dict(item)
-    #     item_dict['single_amount'] = item.amount / item.quantity if item.quantity else 0
-    #     total+=item.amount
-    #     item_dict['item_name'] = item.itemDetails.name  # Add item name to the dictionary
-    #     item_dict['image_url'] = item.itemDetails.image.url  # Add image URL to the dictionary
-    #     order_items_dict.append(item_dict)
-    # content=render_to_string('email.html',{"order":order,"order_items":order_items_dict,"total":total})
+
     msg.attach(MIMEText(text, 'plain'))
 
     pdf_path = 'C:/Users/rka/Django_project/'+journals.name+'.pdf'
@@ -68,21 +59,9 @@ def createserver(journals,user):
         pdf_attachment = MIMEApplication(pdf_file.read(), _subtype="pdf")
         pdf_attachment.add_header('Content-Disposition', 'attachment', filename=journals.name)
         msg.attach(pdf_attachment)
-        
-        # Send the email
+
     server.send_message(msg)
+    messages.success(request, 'Mailed Successfully !')
     server.quit()
     print("Email sent successfully")
-# def books(request):
-#     booklistdata = ItemDetails.objects.all().order_by('name')
-#     data = {"bookdata": booklistdata}
-#     if(request.method=="POST"):
-#         category=request.POST.get("category")
-#         if category == "all":
-#             booklistdata = ItemDetails.objects.all().order_by('name')
-#         else:
-#             booklistdata = ItemDetails.objects.filter(category=category).all().order_by('name')
-#         data = {"bookdata": booklistdata}
-#         # print(data)
-   
-#     return render(request, 'books/books.html', data)
+    
