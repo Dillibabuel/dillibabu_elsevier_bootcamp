@@ -7,7 +7,7 @@ class ItemDetails(models.Model):
     name=models.CharField(max_length=50,blank=False,default="")
     amount=models.IntegerField(blank=False, default=0)
     category=models.CharField(max_length=30,blank=False,default="")
-    description = models.TextField(max_length=200,blank=False)
+    description = models.TextField(max_length=1000,blank=False)
     image=models.ImageField(upload_to='books/',blank=False)
     def __str__(self):
         return str(self.name)

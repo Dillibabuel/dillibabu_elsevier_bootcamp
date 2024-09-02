@@ -2,6 +2,69 @@
 {% load static %}
 {% block 'mainsection' %}
 
+<style>
+
+
+    .orderheader {
+        background-color: #4CAF50;
+        color: white;
+        padding: 5px;
+        text-align: center;
+        border-radius: 8px 8px 0 0;
+    }
+    .ordersummary {
+        text-align: center;
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+    .col-2 {
+        flex: 0 0 16.6667%;
+        max-width: 16.6667%;
+        padding: 5px;
+    }
+    .col-8 {
+        flex: 0 0 66.6667%;
+        max-width: 66.6667%;
+        padding: 5px;
+    }
+    .total-amount {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #d9534f;
+    }
+    .product-line-grid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+    .product-image {
+        width: 100px;
+        height: auto;
+        margin-right: 20px;
+    }
+    .product-line-info {
+        margin-bottom: 10px;
+    }
+    .product-price {
+        font-weight: bold;
+    }
+    .label {
+        font-weight: bold;
+    }
+    .quantity, .total {
+        font-weight: bold;
+    }
+</style>
 
 <div id="checkout" class="main-content">
     <div class="wrap-banner">
@@ -48,6 +111,10 @@
                     <div class="col-2">
                         <span style="display:block">Payment Type</span>
                         <span style="display:block">{{ order.paymenttype }}</span>
+                    </div>
+                    <div class="col-2">
+                        <span style="display:block">Total Amount</span>
+                        <span class="total-amount" style="display:block">${{ total_amount }}</span>
                     </div>
                     
                     <div class="col-2"></div>

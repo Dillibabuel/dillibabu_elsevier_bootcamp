@@ -36,17 +36,22 @@
 </style>
 
 <div class="main-content">
-    <div class="wrap-banner">
+    <div class="wrap-banner" style="padding-top: 20px;">
         <!-- breadcrumb -->
         <nav class="breadcrumb-bg">
             <div class="container no-index">
                 <div class="breadcrumb">
                     <ol>
+                        {% if user.is_authenticated %}
+
+                        
                         <li>
                             <a href="{% url 'index' %}">
                                 <span>Home</span>
                             </a>
                         </li>
+                        {% endif %}
+
                         <li>
                             <a href="#">
                                 <span>Login</span>
@@ -59,7 +64,7 @@
     </div>
 
     <!-- main -->
-    <div id="wrapper-site">
+    <div id="wrapper-site" style="padding: 30px;">
         <div id="content-wrapper" class="full-width">
             <div id="main">
                 <div class="container">
@@ -89,6 +94,13 @@
                                     <div class="forgot-password">
                                         <a href="{% url 'forgotpassword' %}" rel="nofollow">
                                             Forgot your password?
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="no-gutters text-center">
+                                    <div class="forgot-password" style="padding: 10px;">
+                                        <a href="{% url 'register' %}" rel="nofollow" style="color: red;">
+                                            New User? Register!
                                         </a>
                                     </div>
                                 </div>

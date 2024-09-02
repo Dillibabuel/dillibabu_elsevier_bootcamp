@@ -38,6 +38,146 @@
     <!-- Template CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/reponsive.css'%}">
+
+    <!-- <style>
+
+.main-product-detail h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.product-single {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.product-detail {
+    flex: 0 0 40%;
+    max-width: 40%;
+    text-align: center;
+}
+
+.product-detail img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+    flex: 0 0 60%;
+    max-width: 60%;
+    padding: 20px;
+}
+
+.detail-description {
+    margin-bottom: 20px;
+}
+
+.detail-description .nav-tabs {
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.detail-description .nav-tabs li {
+    margin-right: 10px;
+}
+
+.detail-description .nav-tabs li a {
+    padding: 10px 20px;
+    border-radius: 5px 5px 0 0;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    color: #333;
+    text-decoration: none;
+}
+
+.detail-description .nav-tabs li a:hover {
+    background-color: #e9e9e9;
+}
+
+.detail-description .nav-tabs li.active a {
+    background-color: #fff;
+    border-bottom: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.detail-description .tab-content {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 0 0 5px 5px;
+    background-color: #fff;
+}
+
+.price-del .price {
+    font-size: 1.5em;
+    color: #d9534f;
+    font-weight: bold;
+}
+
+.description {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.cart-area {
+    margin-top: 20px;
+}
+
+.product-quantity {
+    margin-bottom: 20px;
+}
+
+.qty .input-group {
+    display: flex;
+    align-items: center;
+}
+
+.qty .input-group .quantity {
+    margin-right: 10px;
+}
+
+.qty .input-group .quantity .control-label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.qty .input-group .form-control {
+    width: 60px;
+    text-align: center;
+}
+
+.add .btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.add .btn:hover {
+    background-color: #45a049;
+}
+
+.rating .star-content {
+    display: flex;
+    align-items: center;
+}
+
+.rating .star {
+    width: 20px;
+    height: 20px;
+    background: url('https://path-to-your-star-image.png') no-repeat center center;
+    background-size: cover;
+    margin-right: 5px;
+}
+    </style> -->
 </head>
 
 <body id="product-sidebar-left">
@@ -78,50 +218,11 @@
                 <div class="desktop_cart">
                     <div class="blockcart block-cart cart-preview tiva-toggle">
                         <div class="header-cart tiva-toggle-btn">
-                            <span class="cart-products-count">1</span>
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                        </div>
-                        <div class="dropdown-content">
-                            <div class="cart-content">
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td class="product-image">
-                                                <a href="product-detail.html">
-                                                    <img src="img/product/5.jpg" alt="Product">
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <div class="product-name">
-                                                    <a href="product-detail.html">Organic Strawberry Fruits</a>
-                                                </div>
-                                                <div>
-                                                    2 x
-                                                    <span class="product-price">£28.98</span>
-                                                </div>
-                                            </td>
-                                            <td class="action">
-                                                <a class="remove" href="#">
-                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="total">
-                                            <td colspan="2">Total:</td>
-                                            <td>£92.96</td>
-                                        </tr>
 
-                                        <tr>
-                                            <td colspan="3" class="d-flex justify-content-center">
-                                                <div class="cart-button">
-                                                    <a href="product-cart.html" title="View Cart">View Cart</a>
-                                                    <a href="product-checkout.html" title="Checkout">Checkout</a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            {% if totalitem > 0 %}
+                <span class="cart-products-count">{{ totalitem }}</span>
+                      {% endif %}
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         </div>
                     </div>
                 </div>
@@ -163,14 +264,7 @@
 
                     <!-- search and acount -->
                     <div class="col-sm-5 col-md-5 d-flex align-items-center justify-content-end" id="search_widget">
-                        <form method="get" action="#">
-
-                            <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
-                            <input type="text" name="s" value="" placeholder="Search" class="ui-autocomplete-input" autocomplete="off">
-                            <button type="submit">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </form>
+                        
 
                         <div id="block_myaccount_infos" class="hidden-sm-down dropdown">
                             <div class="myaccount-title">
@@ -229,52 +323,12 @@
                         <div class="desktop_cart">
                             <div class="blockcart block-cart cart-preview tiva-toggle">
                                 <div class="header-cart tiva-toggle-btn">
-                                    <span class="cart-products-count">1</span>
+                                    {% if totalitem > 0 %}
+                            <span class="cart-products-count">{{ totalitem }}</span>
+                                  {% endif %}
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 </div>
-                                <div class="dropdown-content">
-                                    <div class="cart-content">
-                                        <table>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="product-image">
-                                                        <a href="product-detail.html">
-                                                            <img src="img/product/5.jpg" alt="Product">
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <div class="product-name">
-                                                            <a href="product-detail.html">Organic Strawberry Fruits</a>
-                                                        </div>
-                                                        <div>
-                                                            2 x
-                                                            <span class="product-price">£28.98</span>
-                                                        </div>
-                                                    </td>
-                                                    <td class="action">
-                                                        <a class="remove" href="#">
-                                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="total">
-                                                    <td colspan="2">Total:</td>
-                                                    <td>£92.96</td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td colspan="3" class="d-flex justify-content-center">
-                                                        <div class="cart-button">
-                                                            <a href="product-cart.html" title="View Cart">View Cart</a>
-                                                            <a href="product-checkout.html" title="Checkout">Checkout</a>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
+                                
                             </div>
                         </div>
                     </div>
