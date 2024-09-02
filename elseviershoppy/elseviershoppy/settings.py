@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     'journals',
     'logauth',
     'checkout',
-    'django_extensions',
-
 ]
 
 MIDDLEWARE = [
