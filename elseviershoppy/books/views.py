@@ -22,7 +22,7 @@ def books(request):
         totalitem = OrderItemMapping.objects.filter(orderDetails=order).count()
 
     booklistdata = ItemDetails.objects.all().order_by('name')
-    data = {"bookdata": booklistdata, "totalitem": totalitem,"total_quantity":total_quantity}
+    data = {"bookdata": booklistdata,"total_quantity":total_quantity}
 
     if request.method == "POST":
         category = request.POST.get("category")
@@ -30,7 +30,7 @@ def books(request):
             booklistdata = ItemDetails.objects.all().order_by('name')
         else:
             booklistdata = ItemDetails.objects.filter(category=category).order_by('name')
-        data = {"bookdata": booklistdata, "totalitem": totalitem,"total_quantity":total_quantity}
+        data = {"bookdata": booklistdata,"total_quantity":total_quantity}
 
     return render(request, 'books/books.html', data)
 

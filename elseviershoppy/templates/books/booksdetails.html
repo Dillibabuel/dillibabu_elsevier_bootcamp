@@ -428,7 +428,7 @@
                                                                         <input type="number" name="qty" id="quantity_wanted" value="1" class="input-group form-control" min="1">
                                                                     </div>
                                                                     <span class="add">
-                                                                        <form method="post" action="{% url 'add_to_cart' %}" onsubmit="updateQuantity(this);">
+                                                                        <form method="post" action="{% url 'add_to_cart' %}" onsubmit="return handleAddToCart(this);">
                                                                             {% csrf_token %}
                                                                             <input type="hidden" name="book_id" value="{{ book.id }}">
                                                                             <input type="hidden" name="quantity" id="hidden_quantity" value="1">
@@ -897,6 +897,20 @@
     </div>
 </div>
 <!-- Vendor JS -->
+<script>
+    function handleAddToCart(form) {
+        // Update the quantity if needed
+        var quantity = document.getElementById('quantity_wanted').value;
+        var hiddenQuantity = form.querySelector('#hidden_quantity');
+        hiddenQuantity.value = quantity;
+
+        // Display the pop-up message
+        alert("Item added to cart!");
+
+        // Submit the form
+        return true;  // Allow the form to be submitted
+    }
+</script>
 
 <script src="{% static 'libs/jquery/jquery.min.js'%}"></script>
 <script src="{% static 'libs/popper/popper.min.js'%}"></script>
