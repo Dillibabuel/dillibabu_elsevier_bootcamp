@@ -132,3 +132,4 @@ STATICFILES_DIRS =[ BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'assets'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+ALLOWED_HOSTS = ['ec2-51-20-41-202.eu-north-1.compute.amazonaws.com', '51.20.41.202', 'localhost', '127.0.0.1']

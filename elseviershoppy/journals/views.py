@@ -8,6 +8,8 @@ from email.mime.text import MIMEText
 from django.template.loader import render_to_string
 from django.forms.models import model_to_dict
 from email.mime.application import MIMEApplication
+from checkout.models import OrderDetails, OrderItemMapping
+from django.db.models import Sum
 
 def journals(request):
     user_id = request.user.id
