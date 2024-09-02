@@ -22,7 +22,7 @@ def journals(request):
     return render(request,'journals/journals.html', jdata)
 
 def j_details(request,id):
-    #print(id)
+
     user = request.user
     items = get_object_or_404(JournalItemDetails, id=id)
     if request.method=="POST":
@@ -30,7 +30,7 @@ def j_details(request,id):
     print("test")
     print(items)
     # return render(request,'journals/j_details.html' ,  {'items': items})
-    return render(request,'journals/j_details.html' ,  {'items': items})
+    return render(request,'journals/j_details.html' ,  {'items': items,'user': user})
 
 def journals_by_category(request, category):
     journals = JournalItemDetails.objects.filter(category=category)
