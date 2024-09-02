@@ -408,12 +408,20 @@
                                                             
                                                         </ul> 
                                                         </div>
+                                                        {% for message in messages %}
+                                                            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            {{ message }}
+                                                            </div>
+                                                        {% endfor %}
                                                         <div class="has-border cart-area">
                                                         <div class="product-quantity">
                                                             <div class="qty">
                                                                 <div class="input-group">                                                               
                                                                     <span class="add">
-                                                                        <form method="post">
+                                                                        <form method="post" >
                                                                             {% csrf_token %}
                                                                         <button class="btn btn-primary add-to-cart add-item" data-button-action="add-to-cart" type="submit">
                                                                             <i class="fa fa-download" aria-hidden="true"></i>
@@ -1241,6 +1249,8 @@
 <script src="{% static 'libs/slider-range/js/jquery.dependClass-0.1.js'%}"></script>
 <script src="{% static 'libs/slider-range/js/draggable-0.1.js'%}"></script>
 <script src="{% static 'libs/slider-range/js/jquery.slider.js'%}"></script>
+
+
 
 <!-- Template JS -->
 <script src="{% static 'js/theme.js' %}"></script>
