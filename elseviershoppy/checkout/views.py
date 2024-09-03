@@ -167,7 +167,7 @@ def add_to_cart(request):
 def createserver(user,order,orderitems):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login('mnaazismail5667@gmail.com', 'lyhoutbjnweqczpk')
+    server.login('mnaazismail5667@gmail.com', 'saazdhgwfsqmvsqr')
         
     
     msg = MIMEMultipart()

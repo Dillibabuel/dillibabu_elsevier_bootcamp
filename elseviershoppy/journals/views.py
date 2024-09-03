@@ -57,10 +57,10 @@ def journals_by_category(request, category):
 def createserver(request,journals,user):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login('mnaazismail5667@gmail.com', 'lyhoutbjnweqczpk')
+    server.login('mnaazismail5667@gmail.com', 'saazdhgwfsqmvsqr')
     msg = MIMEMultipart()
-    msg['From'] = 'akshathamayya23@gmail.com'
-    msg['To'] = 'akshathamayya23@gmail.com'
+    msg['From'] = 'mnaazismail5667@gmail.com'
+    msg['To'] = user.email
     msg['Subject'] = 'Requested Journal'
         
         # Add the email body
