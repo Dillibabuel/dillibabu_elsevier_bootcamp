@@ -25,7 +25,6 @@ SECRET_KEY = 'django-insecure-8mu+@lsbn38(pe74@h(6rcj93903$^vk(x#nvb97#t4)ubx0o$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -132,4 +131,4 @@ STATICFILES_DIRS =[ BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'assets'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-ALLOWED_HOSTS = ['ec2-13-60-196-148.eu-north-1.compute.amazonaws.com', '13.60.196.148', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
