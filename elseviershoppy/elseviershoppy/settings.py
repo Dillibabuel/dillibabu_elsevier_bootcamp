@@ -25,7 +25,6 @@ SECRET_KEY = 'django-insecure-8mu+@lsbn38(pe74@h(6rcj93903$^vk(x#nvb97#t4)ubx0o$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -40,7 +39,7 @@ INSTALLED_APPS = [
     'books',
     'journals',
     'logauth',
-    'checkout'
+    'checkout',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +65,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'checkout.context_processors.cart_item_count', 
+
             ],
         },
     },
@@ -128,3 +129,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS =[ BASE_DIR / 'static']
 
 STATIC_ROOT = BASE_DIR / 'assets'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+ALLOWED_HOSTS = ['*']

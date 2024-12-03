@@ -1,7 +1,30 @@
 {% extends 'layouts.html' %}
 {% load static %}
 {% block 'mainsection' %}
+<script>
+    function validateForm() {
+        var address = document.forms["customer-form"]["address"].value;
+        var area = document.forms["customer-form"]["Area"].value;
+        var city = document.forms["customer-form"]["City"].value;
+        var state = document.forms["customer-form"]["State"].value;
+        var pinCode = document.forms["customer-form"]["PinCode"].value;
+        var country = document.forms["customer-form"]["Country"].value;
+        var payment1 = document.getElementById("payment1").checked;
+        var payment2 = document.getElementById("payment2").checked;
 
+        if (address == "" || area == "" || city == "" || state == "" || pinCode == "" || country == "") {
+            alert("All fields must be filled out");
+            return false;
+        }
+
+        if (!payment1 && !payment2) {
+            alert("Please select a payment method");
+            return false;
+        }
+
+        return true;
+    }
+</script>
 
 <div id="checkout" class="main-content">
     <div class="wrap-banner">
@@ -11,12 +34,12 @@
                 <div class="breadcrumb">
                     <ol>
                         <li>
-                            <a href="#">
+                            <a href="{% url 'index' %}">
                                 <span>Home</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{% url 'checkout' %}">
                                 <span>Checkout</span>
                             </a>
                         </li>
@@ -43,59 +66,70 @@
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active show" id="checkout-guest-form"
                                                 role="tabpanel">
-                                                <form action="#" id="customer-form" class="js-customer-form"
+                                                <form action="" id="customer-form" class="js-customer-form"
                                                     method="post">
+                                                    {% csrf_token %}
                                                     <div>
                                                         <input type="hidden" name="id_customer" value="">
                                                         <div class="form-group row">
                                                             <input class="form-control" name="address" type="address"
-                                                                placeholder="Street Address">
+                                                                placeholder="Street Address" required>
                                                         </div>
                                                         <div class="form-group row">
                                                             <input class="form-control" name="Area" type="Area"
-                                                                placeholder="Area">
+                                                                placeholder="Area" required>
                                                         </div>
                                                         <div class="form-group row">
                                                             <input class="form-control" name="City" type="City"
-                                                                placeholder="City">
+                                                                placeholder="City" required>
                                                         </div>
                                                         <div class="form-group row">
                                                             <input class="form-control" name="State" type="State"
-                                                                placeholder="State">
+                                                                placeholder="State" required>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div style="padding: 0px" class="col-9">
-                                                                <input class="form-control" name="PinCode"
-                                                                    type="PinCode" placeholder="PinCode">
-                                                            </div>
-                                                            <div style="padding-right: 0px;padding-left: 13%;"
-                                                                class="col-3">
-                                                                <button class="continue btn btn-primary pull-xs-right"
-                                                                    name="continue"
-                                                                    data-link-action="register-new-customer"
-                                                                    type="submit" value="1">
-                                                                    Fill Address
-                                                                </button>
-                                                            </div>
+
+                                                            <input class="form-control" name="PinCode" type="PinCode"
+                                                                placeholder="PinCode" required>
+
+
 
                                                         </div>
                                                         <div class="form-group row">
                                                             <input class="form-control" name="Country" type="Country"
-                                                                placeholder="Country">
+                                                                placeholder="Country" required>
+                                                        </div>
+                                                        <h3 class="step-title h3 info">
+                                                            <span class="step-number"></span>Payment
+                                                        </h3>
+                                                    </br>
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="payment1" name="COD" value="COD" checked required>
+                                                            <label for="payment1">Cash On Delivery</label>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="payment2" name="Card" value="Card" disabled>
+                                                            <label for="Card">Card(Coming soon!)</label>
                                                         </div>
 
+
+                                                    </div>
+                                                    <div>
+                                                        <button
+                                                            style="background-color: black;padding-bottom: 5px;color:white"
+                                                            class="btn" type="submit">Proceed</button>
                                                     </div>
 
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="checkout-personal-step">
+                                    <!-- <div class="checkout-personal-step">
                                         <h3 class="step-title h3 info">
                                             <span class="step-number"></span>Payment
                                         </h3>
-                                    </div>
-                                    <div class="content">
+                                    </div> -->
+                                    <!-- <div class="content">
 
                                         <div class="tab-content">
                                             <div class="tab-pane fade in active show" id="checkout-guest-form"
@@ -137,61 +171,9 @@
                                                 Proceed
                                             </button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
-                                <div class="cart-grid-right col-xs-12 col-lg-3">
-                                    <div class="cart-summary">
-                                        <div class="cart-detailed-totals">
-                                            <div class="cart-summary-products">
-                                                <div class="summary-label">There are 3 item in your cart</div>
-                                            </div>
-                                            <div class="cart-summary-line" id="cart-subtotal-products">
-                                                <span class="label js-subtotal">
-                                                    Total products:
-                                                </span>
-                                                <span class="value">£200.00</span>
-                                            </div>
-                                            <div class="cart-summary-line" id="cart-subtotal-shipping">
-                                                <span class="label">
-                                                    Total Shipping:
-                                                </span>
-                                                <span class="value">Free</span>
-                                                <div>
-                                                    <small class="value"></small>
-                                                </div>
-                                            </div>
-                                            <div class="cart-summary-line cart-total">
-                                                <span class="label">Total:</span>
-                                                <span class="value">£200.00 (tax incl.)</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="block-reassurance">
-                                        <ul>
-                                            <li>
-                                                <div class="block-reassurance-item">
-                                                    <img src="{% static 'img/product/check1.png' %}"
-                                                        alt="Security policy (edit with Customer reassurance module)">
-                                                    <span>Security policy (edit with Customer reassurance module)</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="block-reassurance-item">
-                                                    <img src="{% static 'img/product/check2.png' %}"
-                                                        alt="Delivery policy (edit with Customer reassurance module)">
-                                                    <span>Delivery policy (edit with Customer reassurance module)</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="block-reassurance-item">
-                                                    <img src="{% static 'img/product/check3.png' %}"
-                                                        alt="Return policy (edit with Customer reassurance module)">
-                                                    <span>Return policy (edit with Customer reassurance module)</span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                {% include 'checkout/cartsummary.html' %}
                             </div>
                         </div>
                     </div>

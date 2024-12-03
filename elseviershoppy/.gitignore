@@ -1,14 +1,17 @@
 # Python
 *.pyc
 __pycache__/
+migrations/
+
 
 # Django
 *.sqlite3
-/media/
+assets/
 /staticfiles/
 
 # Environment Variables
 .env
+db.sqlite3
 
 # Virtual Environments
 venv/

@@ -2,19 +2,56 @@
 {% load static %}
 
 {% block 'mainsection' %}
-<div class="main-content">
-    <div class="wrap-banner">
 
+<style>
+#wrapper-site {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+#content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    text-align: center;
+}
+
+.form-control-md {
+    max-width: 600px; /* Adjust as needed for your design */
+    width: 100%; /* Ensures the input field takes up the full width of its container */
+    box-sizing: border-box; /* Includes padding and border in the element's total width */
+    margin: 0 auto; /* Center horizontally if you have a fixed width */
+}
+
+.btn-md {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+}
+
+</style>
+
+<div class="main-content">
+    <div class="wrap-banner" style="padding-top: 20px;">
         <!-- breadcrumb -->
         <nav class="breadcrumb-bg">
             <div class="container no-index">
                 <div class="breadcrumb">
                     <ol>
+                        {% if user.is_authenticated %}
+
+                        
                         <li>
-                            <a href="#">
+                            <a href="{% url 'index' %}">
                                 <span>Home</span>
                             </a>
                         </li>
+                        {% endif %}
+
                         <li>
                             <a href="#">
                                 <span>Login</span>
@@ -24,31 +61,46 @@
                 </div>
             </div>
         </nav>
-
     </div>
 
     <!-- main -->
-    <div id="wrapper-site">
+    <div id="wrapper-site" style="padding: 30px;">
         <div id="content-wrapper" class="full-width">
             <div id="main">
                 <div class="container">
                     <h1 class="text-center title-page">Log In</h1>
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      {{ message }}
+                    </div>
+                  {% endfor %}
                     <div class="login-form">
-                        <form id="customer-form" action="#" method="post">
+                        <form action="" method="post">
+                            {% csrf_token %}
                             <div>
                                 <input type="hidden" name="back" value="my-account">
-                                <div class="form-group no-gutters">
-                                    <input class="form-control" name="email" type="email" placeholder=" Email">
+                                <div class="form-group no-gutters mb-3">
+                                    <input class="form-control form-control-md" name="username" type="text" placeholder="Username" required>
                                 </div>
-                                <div class="form-group no-gutters">
+                                <div class="form-group no-gutters mb-4">
                                     <div class="input-group js-parent-focus">
-                                        <input class="form-control js-child-focus js-visible-password" name="password" type="password" value="" placeholder="Password">
+                                        <input class="form-control js-child-focus js-visible-password form-control-md" name="password" type="password" value="" placeholder="Password" required>
                                     </div>
                                 </div>
                                 <div class="no-gutters text-center">
                                     <div class="forgot-password">
-                                        <a href="user-reset-password.html" rel="nofollow">
+                                        <a href="{% url 'forgotpassword' %}" rel="nofollow">
                                             Forgot your password?
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="no-gutters text-center">
+                                    <div class="forgot-password" style="padding: 10px;">
+                                        <a href="{% url 'register' %}" rel="nofollow" style="color: red;">
+                                            New User? Register!
                                         </a>
                                     </div>
                                 </div>
@@ -56,7 +108,7 @@
                             <div class="clearfix">
                                 <div class="text-center no-gutters">
                                     <input type="hidden" name="submitLogin" value="1">
-                                    <button class="btn btn-primary" data-link-action="sign-in" type="submit">
+                                    <button class="btn btn-primary btn-md" data-link-action="sign-in" type="submit">
                                         Sign in
                                     </button>
                                 </div>
@@ -68,4 +120,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
